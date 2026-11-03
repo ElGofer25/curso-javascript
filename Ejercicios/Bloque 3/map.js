@@ -48,12 +48,12 @@ Pregunta: ¿qué devuelve el callback y qué devuelve map?
         square = input[i] * input [i]
         squared.push(square)
     }
-    console.log(squared)    
+    // console.log(squared)    
     */}
     const squared = input.map((number) => {
         return number * number
     })
-    console.log(squared)
+    // console.log(squared)
 
 
 }
@@ -76,7 +76,7 @@ const temperature = [0, 20, 30, -10]
 const fahrenheit = temperature.map((Celsius)=>{
     return (32 + (Celsius*9)/5)
 })
-console.log(fahrenheit)
+// console.log(fahrenheit)
 
 }
 
@@ -97,7 +97,7 @@ const names = ["Ana", "Luis", "Eva"]
 const lista = names.map((name, index) =>{
     return `${index + 1}. ${name}`
 })
-console.log(lista)
+// console.log(lista)
 
 }
 
@@ -135,8 +135,8 @@ const prices = productos.map((producto) => {
 const names = productos.map((producto) => {
     return producto.nombre
 })
-console.log(prices)
-console.log(names)
+// console.log(prices)
+// console.log(names)
 
 
 }
@@ -189,7 +189,7 @@ const descuento = Productos.map((producto) => {
   };
 });
 
-console.log(descuento);
+// console.log(descuento);
 
 }
 
@@ -232,7 +232,7 @@ filter recibe cada persona y devuelve una condición para decidir si conservarla
 map recibe las personas conservadas y devuelve sus nombres en mayúsculas.    
 */}
 
-console.log(adultos); // ["LUIS", "EVA"]
+// console.log(adultos); // ["LUIS", "EVA"]
 }
 
 
@@ -261,7 +261,7 @@ Pregunta: ¿qué recibe y qué devuelve cada uno de los dos callbacks?
     const multiply = input.map((value) => {
         return value * 10
     })
-    console.log(multiply)    
+    // console.log(multiply)    
     */}
     const multiply = input.map((fila)=> {
         // Este map recorre los valores de tupla
@@ -270,7 +270,7 @@ Pregunta: ¿qué recibe y qué devuelve cada uno de los dos callbacks?
         })
     })
 
-    console.log(multiply);
+    // console.log(multiply);
 }
 
 /*
@@ -288,12 +288,13 @@ B. Predice qué imprime y explica por qué:
 const originales = [{ puntos: 10 }];
 const copia = originales.map((elemento) => elemento);
 copia[0].puntos = 99;
-console.log(originales[0].puntos);
+// console.log(originales[0].puntos);
 
 R: Imprime 99, como se relaciona con el valor orginal pues lo modifica. 
 
 Reescribe B para que cambiar copia[0].puntos no cambie originales[0].puntos.
-Pregunta: ¿crear un array nuevo implica copiar los objetos que contiene?
+Pregunta: 
+¿crear un array nuevo implica copiar los objetos que contiene?R: No, solo se copian las referencias a los objetos, no los objetos en sí.
 */
 
 // Tu solución:
@@ -302,13 +303,13 @@ const input = [2, 4]
 const resultado = input.map((numero) => {
   return numero * 2;
 });
-console.log(resultado)
+// console.log(resultado)
 
 
 const originales = [{ puntos: 10 }];
 const copia = originales.map((elemento) => elemento);
 copia[0].puntos = 99;
-console.log(originales[0].puntos);
+// console.log(originales[0].puntos);
 
 }
 
@@ -339,6 +340,19 @@ Pregunta: ¿actualizar una clave agrega otra entrada o reemplaza su valor?
 
 // Tu solución:
 
+{
+const inventario = new Map([
+  ["cuaderno", 8],
+  ["lápiz", 15],
+]);
+inventario.set('borrador', 5)
+inventario.set('cuaderno', 10)
+
+// console.log(inventario.get('cuaderno'))
+// console.log(inventario.has('regla'))
+
+}
+
 /*
 10. CLAVES — tipos, identidad y valores ausentes
 
@@ -347,20 +361,62 @@ A. Guarda estas dos entradas en un Map:
 "2" → "texto"
 Comprueba que size es 2 y recupera ambos valores.
 
-B. Crea const usuario = { id: 1 } y úsalo como clave con el valor "editor".
-Compara get(usuario) con get({ id: 1 }).
-Esperado: "editor" y undefined, respectivamente.
+B. Usar un objeto como clave de un Map
+1. Crea la variable const usuario = { id: 1 }.
+2. Crea un nuevo Map llamado roles.
+3. Usa set para agregar una entrada a roles: la clave será el objeto guardado en usuario y el valor será el texto "editor".
+4. Imprime roles.get(usuario).
+5. Imprime roles.get({ id: 1 }).
+Resultado esperado: la primera consulta devuelve "editor" y la segunda devuelve undefined.
 
-C. Guarda "pendiente" → undefined.
-Compara get y has para "pendiente" y para "inexistente".
-Esperado:
-- get devuelve undefined en ambos casos.
-- has devuelve true para "pendiente" y false para "inexistente".
+Pregunta: ambos objetos contienen id: 1, pero ¿son el mismo objeto?
+
+C. Distinguir una clave ausente de una clave cuyo valor es undefined
+1. Crea un nuevo Map llamado estados.
+2. Usa set para guardar la clave "pendiente" con el valor undefined (sin comillas).
+3. No agregues ninguna entrada con la clave "inexistente".
+4. Imprime el resultado de estas cuatro consultas:
+   - estados.get("pendiente")
+   - estados.get("inexistente")
+   - estados.has("pendiente")
+   - estados.has("inexistente")
+Resultados esperados, en ese orden: undefined, undefined, true, false.
+
+Pregunta: si ambas consultas con get devuelven undefined, ¿qué método permite distinguir cuál de las dos claves existe?
 
 Pregunta: ¿por qué get por sí solo no siempre permite saber si existe una clave?
 */
 
 // Tu solución:
+
+{
+  //Solución A:
+const data = new Map([
+  ['numero', 2],
+  ['texto', '2']
+])
+console.log(data.size)
+
+  //Solución B:
+  const usuario = {id: 1}
+  const roles = new Map()
+
+  
+  console.log(roles.set(usuario, 'editor'))
+  console.log(roles.get({id:1}))
+
+  //Solución C:
+  const estados = new Map([
+    ['pendiente', undefined],
+  ])
+console.log(estados.get("pendiente"))
+console.log(estados.get("inexistente"))
+console.log(estados.has("pendiente"))
+console.log(estados.has("inexistente"))
+
+}
+
+
 
 /*
 11. FRECUENCIAS — contar apariciones
