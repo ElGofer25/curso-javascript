@@ -162,12 +162,52 @@ Observa que no aparecen 0 0, 1 1, 2 2 ni 3 3.
 Tampoco aparece 1 0, porque la pareja 0 1 ya fue examinada.
     
 */}
-const nums = [4, 2, 8, 5];
+// const nums = [4, 2, 8, 5];
 
-for(let i =0; i<nums.length; i++){
-    for(let j = i + 1; j< nums.length; j++){
-        console.log(i, j)
+// for(let i =0; i<nums.length; i++){
+//     for(let j = i + 1; j< nums.length; j++){
+//         console.log(i, j)
+//     }
+// }
+
+{/*
+Repaso 1 — Second Largest Distinct Number
+Ejercicio 1 de 2
+Enunciado: Dado un array de números enteros, desarrolla una función que devuelva el segundo número distinto más grande.
+
+Ejemplos
+Entrada	Resultado esperado
+    [4, 8, 2, 9, 5]	8
+    [10, 10, 8, 7]	8
+    [-5, -2, -8, -1]	-2
+    [5, 5, 5]	null
+    [9]	null
+    []	null
+
+Restricciones
+- Utiliza JavaScript.
+- No utilices sort(), Set ni Math.max().
+- Intenta resolverlo con un solo recorrido.
+- Devuelve null si no existe un segundo número distinto.
+- No consultes el código que construimos anteriormente.
+const nums = [-1, -2, -3];
+
+function secondLargest(nums) {
+    let first = nums[0];
+    let second = null;
+
+    if(2 > nums.length){
+        return null
     }
+    for(let i = 0; i < nums.length; i ++){
+        if(nums[i] > first){
+           second = first
+           first = nums[i] 
+        } else if(nums[i] < first && (second === null || nums[i] > second)){
+            second = nums[i]
+        }
+    }
+    return second
 }
-
-
+console.log(secondLargest(nums))
+*/}

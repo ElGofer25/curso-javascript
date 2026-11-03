@@ -26,7 +26,7 @@ console.log(b)
 
 let myVariable = 2
 console.log(myVariable)
-myVariable += 2 // Suma con asignación, es lo mismo que poner myVariable = myVariable + 2
+myVariable += 2 // Suma con asignación
 console.log(myVariable)
 
 myVariable -= 2 // Resta con asignación
