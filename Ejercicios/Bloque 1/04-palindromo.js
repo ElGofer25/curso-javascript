@@ -13,7 +13,9 @@ Reglas específicas:
 3. El resultado debe ser un booleano.
 4. Puedes utilizar cualquier método estándar de JavaScript. No exigiremos optimización.
 5. Una cadena vacía se considera un palíndromo.
-    
+*/}
+{
+//Palindrome string    
 const palabra = 'RaceCar';
 const validate = palabra.toLowerCase();
 
@@ -27,5 +29,26 @@ function isPalindrome(validate){
     return true
 }
 
-console.log(isPalindrome(validate))
-*/}
+console.log(isPalindrome(validate))}
+
+{
+// Palindrome integer
+var isPalindrome = function(x) {
+    if (x < 0) {
+        return false;
+    }
+
+    const texto = String(x);
+
+    for (let i = 0; i < texto.length / 2; i++) {
+        const j = texto.length - 1 - i;
+
+        if (texto[i] !== texto[j]) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+}
