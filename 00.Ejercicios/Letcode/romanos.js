@@ -26,8 +26,38 @@ Given a roman numeral, convert it to an integer.
     
 */}
 
-const romantoint = function(s) {
-    const myNumbers = new Map([
+// {const romantoint = function(s) {
+//     const myNumbers = new Map([
+//         ['I', 1],
+//         ['V', 5],
+//         ['X', 10],
+//         ['L', 50],
+//         ['C', 100],
+//         ['D', 500],
+//         ['M', 1000]
+//     ]);
+
+//     let total = 0;
+
+//     for (let i = 0; i < s.length; i++) {
+//         const actual = myNumbers.get(s[i]);
+//         const siguiente = myNumbers.get(s[i + 1]) ?? 0;
+
+//         if (actual < siguiente) {
+//             total -= actual;
+//         } else {
+//             total += actual;
+//         }
+//     }
+
+//     return total;
+// };
+
+// // console.log(romantoint('XIV'));
+// } // 14
+
+{function romanNumber(s){
+    const romanNumbers = new Map([
         ['I', 1],
         ['V', 5],
         ['X', 10],
@@ -35,22 +65,21 @@ const romantoint = function(s) {
         ['C', 100],
         ['D', 500],
         ['M', 1000]
-    ]);
-
+    ])
+    
     let total = 0;
-
-    for (let i = 0; i < s.length; i++) {
-        const actual = myNumbers.get(s[i]);
-        const siguiente = myNumbers.get(s[i + 1]) ?? 0;
-
-        if (actual < siguiente) {
+    for(let i = 0; i<s.length; i++){
+        
+        const actual = romanNumbers.get(s[i]);
+        const siguiente = romanNumbers.get(s[i+1] ?? 0);
+        
+        if(actual < siguiente ){
             total -= actual;
         } else {
             total += actual;
         }
     }
-
-    return total;
-};
-
-console.log(romantoint('XIV')); // 14
+    return total
+}
+console.log(romanNumber('XIV'))
+}
