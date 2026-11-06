@@ -58,7 +58,21 @@ EXPLICA
   ¿Qué devuelve arr[arr.length] y por qué?
 */
 // TU SOLUCIÓN
+{
+  function extremos(arr) {
+    const newArray = [];
 
+    if (arr.length === 0) {
+      return [];
+    }
+
+    newArray.push(arr[0]);
+    newArray.push(arr[arr.length - 1]);
+
+    return newArray;
+  }
+
+}
 
 // EJERCICIO 02 — Contar los que superan un límite
 /*
@@ -83,9 +97,23 @@ EJEMPLOS
 
 EXPLICA
   ¿Por qué el contador se declara fuera del bucle?
+  Por que el contador cambia en función del resultado de cada iteración, no en cada iteración.
 */
 // TU SOLUCIÓN
+{
+  function contarMayores(arr, limite) {
+    let contador = 0
 
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] > limite) {
+        contador += 1
+      }
+    }
+
+    return contador
+  }
+
+}
 
 // EJERCICIO 03 — El mayor sin Math.max
 /*
@@ -113,10 +141,28 @@ EJEMPLOS
 
 EXPLICA
   ¿Qué resultado daría tu función con [-5, -2, -9] si «mayor» empezara en 0?
+  Daría el mismo cero, porque, al ser valores negativos no alcancirían el 'umbral' de la condición
 COMPLEJIDAD
   ¿Cuál es el tiempo y el espacio extra de tu solución?
+  On para ambos casos, es lineal porque no ejecuta un doble bucle ni requiere escalar el espacio en memoria
 */
 // TU SOLUCIÓN
+{
+  function maximo(arr){
+    let resultado = arr[0];
+
+    if(arr.length === 0){
+      return undefined
+    }
+
+    for(let i=0; i<arr.length; i++){
+    if(resultado < arr[i]){
+      resultado = arr[i]
+    }
+   }
+   return resultado
+  }
+}
 
 
 // EJERCICIO 04 — Invertir sin reverse
@@ -139,8 +185,21 @@ EJEMPLOS
 
 EXPLICA
   ¿Cuál debe ser la condición del for para que el índice 0 SÍ se procese?
+  Es la siguiente: (let i = arr.length - 1; i >= 0; i--) 
+  Basicamente empezamos al revés, antes especificabamos que el bucle debia de cumplirse mientras i < arr.length; ahora es al revés, debemos de especificar que el bucle se cumpla mientras i sea mayor que sero y que se detenga en 0, por eso i <= 0; ese menor o igual a cero es el que abarca el indice 0
 */
 // TU SOLUCIÓN
+
+{
+  function invertirArreglo(arr) {
+    let resultado = [];
+    for (let i = arr.length - 1; i >= 0; i--) {
+      resultado.push(arr[i])
+    }
+
+    return resultado
+  }
+}
 
 
 // EJERCICIO 05 — Intercambiar dos posiciones
@@ -168,9 +227,28 @@ EJEMPLOS
 
 EXPLICA
   ¿Qué pasa si intentas intercambiar sin variable temporal usando solo dos asignaciones
-  (arr[i] = arr[j]; arr[j] = arr[i])?
+  (arr[i] = arr[j]; arr[j] = arr[i])? Chocan los valores, la variable temporal nos permite 'retener' el valor por un instante en cada iteración y así poder verificar si cumple o no, si no la tuvieramos no podriamos guardar el valor para compararlo
 */
 // TU SOLUCIÓN
+{
+  function intercambiar(arr, i, j){
+
+    for(let a = 0; a < arr.length; a++){
+      let b;
+      if(a === i){
+        b = a
+      }
+      for(let c = a +1; c < arr.length; c++ ){
+        if(c === j){
+          arr[a] = c; arr[c] = b
+        }
+      }
+    }
+
+    return arr
+  }
+
+}
 
 
 // EJERCICIO 06 — Rotar a la izquierda
@@ -203,7 +281,11 @@ COMPLEJIDAD
   ¿Cuál es el tiempo y el espacio extra de tu solución?
 */
 // TU SOLUCIÓN
+{
 
+
+
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // BLOQUE B — STRINGS Y RECORRIDOS
