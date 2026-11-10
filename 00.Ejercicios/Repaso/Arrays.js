@@ -95,19 +95,20 @@ COMPRUEBA
 
 EXPLICA
   ¿Por qué «suma» se declara fuera del bucle? ¿Qué pasaría si se declarara dentro?
+  Suma se declara fuera del bucle porque si tiene un valor inicial según la lógica. Además, si lo declaramos dentro, no podríamos llevar a cabo la suma pues el valor se perdería en cada iteración del bucle.
+  Básicamente, suma tiene que ir almacenando y sumando los valores durante el recorrido.
 */
 // TU SOLUCIÓN
 
 {
     function runningSum(nums){
-        let contador;
-        let newArray = []
-        for(const elemento in nums){
-            contador += elemento
-            newArray.push(contador)
+        let suma = 0;
+        let newArray = [];
+
+        for(const n of nums){
+            suma += n
+            newArray.push(suma)
         }
-        
-        
         return newArray
     }
 }
@@ -155,12 +156,24 @@ COMPRUEBA
 
 EXPLICA
   ¿Por qué falta justamente la diferencia entre las dos sumas?
+    Lo que pasa es que la formula de gauss nos dice cuanto sumarían los elementos SÍ ESTUVIERAN COMPLETOS, entonces. Considerando que el elemento que falta está entre el intervalo [0, n]; habría que calcular la suma de gauss y restarle la suma de los elementos existentes para así obtener el valor ausente.
+    En pocas palabras, el valor ausente si entra en la suma de gauss pero no en la segunda suma. Como el valor de gauss sería mayor al de la segunda suma, esa diferencia nos da el valor faltante.
 COMPLEJIDAD
-  ¿Cuál es el tiempo y el espacio extra? ¿Cómo sería con dos bucles anidados (buscar cada
-  número del 0 al n)?
+  ¿Cuál es el tiempo y el espacio extra? El tiempo es lineal, podríamos considerar: O(n)
+  ¿Cómo sería con dos bucles anidados (buscar cada número del 0 al n)? En cuestión de tiempo, sería On2
 */
 // TU SOLUCIÓN
+{
+    function missingNumber(nums){
+        const gauss = (nums.length*(nums.length+1)/2)
+        let suma = 0;
 
+        for(const i of nums){
+            suma += i
+        }
+        return (gauss - suma)
+    }
+}
 
 // EJERCICIO 03 — Índice de equilibrio (LC 724 · Find Pivot Index)
 /*
@@ -209,7 +222,19 @@ COMPLEJIDAD
   ¿Cuál es el tiempo y el espacio extra de tu solución?
 */
 // TU SOLUCIÓN
+{
+    function pivotIndex(nums){
+        if(nums.length === 0) return 'Arreglo vacío';
 
+        let suma = 0;
+
+        for(let i = 0; nums.length; i++){
+            suma += nums[i]
+        }
+
+        return
+    }
+}
 
 // EJERCICIO 04 — La racha de unos más larga (LC 485 · Max Consecutive Ones)
 /*
