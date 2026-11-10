@@ -2,8 +2,9 @@
 
 Este archivo indica cómo crear compendios de ejercicios en `00.Ejercicios/Repaso` y cómo se
 relacionan con la ruta de aprendizaje. El formato es el del `Compendio03.ts` del curso de
-TypeScript, adaptado a JavaScript: **cada ejercicio dice QUÉ HACER paso a paso**, no solo qué
-características debe tener la solución.
+TypeScript, adaptado a JavaScript, con una diferencia clave: **QUÉ DEBES HACER define el
+problema con precisión (entradas, salida y reglas), pero NUNCA el algoritmo.** El alumno decide
+cómo resolverlo; RESTRICCIONES le dice con qué herramientas puede hacerlo y con cuáles no.
 
 ## 1. Objetivo
 
@@ -84,7 +85,7 @@ creciente. Numera los temáticos en orden (`Repaso01.js`, `Repaso02.js`…).
 | Problemas | Diseñados para practicar los temas de la etapa | Reescritura en español de problemas reales de nivel fácil |
 | Nombres de función | Español | **Inglés**, como en la plataforma (se practica el idioma de la Etapa 6) |
 | Título | `EJERCICIO NN — Título corto` | `EJERCICIO NN — Título (LC 1480 · Running Sum of 1d Array)` o `(HR · Mini-Max Sum)` |
-| Sección extra | — | **RESTRICCIONES** (qué datos se pueden esperar) |
+| Sección RESTRICCIONES | **Obligatoria** | **Obligatoria** |
 
 Reglas del estilo LeetCode/HackerRank:
 - Solo problemas **reales** y de nivel fácil (o fáciles-medios) que puedan resolverse con lo que
@@ -95,6 +96,7 @@ Reglas del estilo LeetCode/HackerRank:
 - **No repitas problemas que el alumno ya resolvió:** Two Sum, Best Time to Buy and Sell Stock,
   Maximum Subarray, Move Zeroes, Merge Sorted Array, Majority Element, Longest Common Prefix,
   Roman to Integer, FizzBuzz, Valid Palindrome, contar letras. Revisa también `Letcode/`.
+- RESTRICCIONES sigue la sección 8 (datos + qué usar + qué no usar).
 - Cuando el problema original exija modificar el arreglo «en el sitio», dilo y comprueba el
   resultado en las pruebas (por ejemplo, las primeras `k` posiciones).
 
@@ -105,7 +107,8 @@ Reglas del estilo LeetCode/HackerRank:
 3. **Nunca modifiques el código que el alumno haya escrito** en sus soluciones, ni lo
    corrijas, ni borres sus respuestas de EXPLICA y COMPLEJIDAD. Si hay errores, señálalos en tu
    respuesta. Si el alumno ya resolvió ejercicios, edita solo los comentarios de enunciado.
-4. No incluyas soluciones en el compendio. Cada ejercicio termina con `// TU SOLUCIÓN`.
+4. No incluyas soluciones **ni el algoritmo** en el compendio (ni en QUÉ DEBES HACER, ni en
+   RESTRICCIONES). Cada ejercicio termina con `// TU SOLUCIÓN`.
 5. Si la petición no dice cuántos ejercicios ni qué tema, usa 20 y la etapa en curso; pregunta
    solo si el tema es ambiguo.
 
@@ -119,14 +122,15 @@ Reglas del estilo LeetCode/HackerRank:
 
 ### Cabecera: lo que debe incluir
 
-- **Cómo trabajar cada ejercicio** (siete pasos): leer SITUACIÓN → seguir QUÉ DEBES HACER → escribir
-  la función → predecir a mano → ejecutar `node Archivo.js` → si falla, tabla de seguimiento →
+- **Cómo trabajar cada ejercicio** (siete pasos): leer SITUACIÓN y RESTRICCIONES → cumplir QUÉ
+  DEBES HACER (el qué, no el cómo) → escribir la función → predecir a mano → ejecutar `node Archivo.js` → si falla, tabla de seguimiento →
   responder EXPLICA.
 - Qué significan ✔ / ✘ / … y que COMPRUEBA se puede copiar debajo de la función para ver valores.
 - **Vocabulario** («devuelve», «recorre», «índice válido», «arreglo nuevo», «en el sitio»…).
 - Las funciones **devuelven** el resultado; no lo imprimen.
 - No se modifican los argumentos, salvo que el ejercicio diga «en el sitio» (las pruebas lo verifican).
-- Métodos **prohibidos** salvo permiso explícito del ejercicio: `map`, `filter`, `reduce`,
+- Lista **general** de métodos prohibidos (cada ejercicio la concreta en su RESTRICCIONES), salvo
+  permiso explícito del ejercicio: `map`, `filter`, `reduce`,
   `forEach`, `find`, `some`, `every`, `sort`, `reverse`, `Math.max`, `Math.min`, regex, y
   `Set`/`Map` en la etapa 1. Al avanzar de etapa, relaja solo lo que la etapa enseña.
   Si el compendio prohíbe `slice`/`splice`, aclara que COMPRUEBA puede usarlos solo para mirar resultados.
@@ -141,19 +145,23 @@ SITUACIÓN
 
   Ejemplo: un caso resuelto en palabras, con sus datos concretos.
 
-  Idea: la técnica o el concepto que entrena el ejercicio (y la trampa, si la hay).
+  Idea: el concepto que entrena el ejercicio (y la trampa, si la hay).
 
-RESTRICCIONES            (obligatoria en el estilo LeetCode/HackerRank; opcional en el temático)
-  - qué datos se pueden esperar: rangos, si puede estar vacío, si hay negativos, repetidos…
+RESTRICCIONES            (obligatoria en todos los compendios)
+  Datos:
+  - qué se puede esperar: rangos, si puede estar vacío, si hay negativos, repetidos…
+  Usa:
+  - estructura de datos (arreglo, string, matriz; sin estructuras auxiliares) y tipo de bucle o
+    método que se debe emplear.
+  No uses:
+  - métodos, bucles o estructuras prohibidos en este ejercicio, y si se puede mutar la entrada.
 
 QUÉ DEBES HACER
   1. Declara la función nombre(parámetros). Recibe ... y devuelve ...
-  2. Caso especial o inválido primero: qué devolver y terminar.
-  3. Crea la variable «acumulador» con valor inicial X, ANTES del bucle.
-  4. Recorre ... con un for: i empieza en ..., continúa mientras ... y avanza ...
-  5. En cada vuelta, si ..., entonces ...
-  6. Al terminar el bucle, devuelve ... Qué NO usar (métodos prohibidos, mutar la entrada).
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Regla: qué valor devuelve en cada situación, con límites exactos («5 o menos / más de 5»).
+  3. Caso especial: qué devuelve con entrada vacía o inválida.
+  4. Efectos permitidos o prohibidos sobre los argumentos (mutar o no).
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(nombre(entrada));   // resultado   (a qué caso corresponde)
@@ -166,39 +174,76 @@ COMPLEJIDAD
 // TU SOLUCIÓN
 ```
 
-Es el formato del `Compendio03.ts` (SITUACIÓN · QUÉ DEBES HACER · COMPRUEBA · EXPLICA). En JavaScript
-no existe «ESTO DEBE FALLAR» (no hay errores de tipos): los casos límite van como líneas de
-COMPRUEBA anotadas con el caso que cubren. Los comentarios no pueden contener `*/`.
+Es el formato del `Compendio03.ts` (SITUACIÓN · QUÉ DEBES HACER · COMPRUEBA · EXPLICA) más
+RESTRICCIONES. En JavaScript no existe «ESTO DEBE FALLAR» (no hay errores de tipos): los casos
+límite van como líneas de COMPRUEBA anotadas con el caso que cubren. Los comentarios no pueden
+contener `*/`.
 
 ## 8. Cómo redactar el enunciado
 
-El criterio central: **quien solo lee el enunciado sabe qué se pide, qué escribir primero, qué
-después y cuándo terminó.** Una descripción de características sin acciones es incorrecta.
+El criterio central: **quien lee el enunciado sabe con exactitud QUÉ debe cumplir la función
+(entradas, salida, reglas y bordes), pero tiene que pensar CÓMO lograrlo.** Si QUÉ DEBES HACER se
+puede copiar a código línea por línea, estás dando la respuesta y hay que reescribirlo.
+
+### QUÉ DEBES HACER = especificación, no receta
+
+Cada paso describe un **resultado o una regla**, no una acción del algoritmo.
+
+- **Sí escribe:** nombre de la función, parámetros con su tipo, qué devuelve (tipo y significado),
+  la regla de qué valor corresponde a cada situación con límites exactos («5 o menos / más de 5»),
+  qué devuelve con entrada vacía o inválida, si debe devolver un arreglo nuevo o modificar el
+  recibido, y qué debe cumplirse al terminar.
+- **No escribas:**
+  - nombres de variables auxiliares («crea la variable `suma`») ni sus valores iniciales;
+  - qué bucle usar, desde dónde empieza el índice, cuándo termina o cómo avanza;
+  - el orden de las operaciones («primero…, luego…, en cada vuelta…»);
+  - la técnica o fórmula que resuelve el problema (acumulador, dos índices, bandera, Gauss…).
+    Esa idea se nombra, como mucho, en «Idea» de SITUACIÓN, sin el paso a paso.
+- Un solo paso por regla, en el orden en que un lector la necesita: firma → regla principal →
+  casos especiales → efectos sobre la entrada → ejecutar COMPRUEBA.
+- Si una regla tiene varios casos, enuméralos con a), b), c) como **resultados** («a) si el
+  texto está vacío, devuelve 0; b) si ...»), no como instrucciones de código.
+- **Prueba de lectura:** lee solo QUÉ DEBES HACER. Si pudieras teclear la solución sin pensar,
+  reescríbelo. Si no sabes qué debe devolver la función en algún caso, falta precisión.
+
+### RESTRICCIONES = datos + qué usar + qué no usar
+
+Obligatoria en todos los ejercicios, con tres bloques. Debe ser **específica**: nombra la
+herramienta, no categorías vagas.
+
+- **Datos:** rangos, si puede estar vacío, negativos, repetidos, si la entrada ya viene ordenada,
+  tipos y límites de longitud.
+- **Usa:** la **estructura de datos** (arreglo, string, matriz; «solo variables, sin arreglos
+  auxiliares»), el **tipo de bucle o método** que se debe emplear (`for` con índice, `for...of`,
+  `while`, bucles anidados, `.push()`, `.length`, `.includes()`, `Math.abs`…) y, si procede,
+  cuántos recorridos se esperan («un solo recorrido»).
+- **No uses:** los métodos, bucles o estructuras prohibidos en ese ejercicio por su nombre
+  (`map`, `filter`, `reduce`, `forEach`, `sort`, `reverse`, `slice`, `splice`, `Math.max`,
+  `Set`, `Map`, regex, `.at()`…), si **no** se puede mutar la entrada, y si no se puede crear un
+  arreglo auxiliar o usar recursión.
+- Lo que se indica en **Usa** y **No uses** debe poder cumplirse a la vez con la solución de
+  referencia (sección 11) y respetar el alcance de la etapa. Que RESTRICCIONES diga **con qué
+  herramientas** resolverlo no equivale a decir **cómo**: no insinúes el orden ni la lógica.
+- No repitas en RESTRICCIONES las reglas del problema: esas van en QUÉ DEBES HACER.
+
+### Resto del enunciado
 
 - **SITUACIÓN completa, no una frase de contexto.** Tres partes, separadas por una línea en
   blanco: (1) *contexto*: el problema real, qué recibe y qué devuelve la función, y la definición
   de cualquier término que use («rotar», «subsecuencia», «palíndromo»); (2) *Ejemplo*: un caso
-  resuelto en palabras que muestre qué pasa con los datos; (3) *Idea*: la técnica que entrena
-  (contador, dos índices, bandera…) y la trampa más común. Prueba: quien lee solo la SITUACIÓN
-  sabe qué se pide y por qué, antes de ver los pasos.
-- **Máxima claridad en todos los ejercicios.** No reduzcas los pasos en los difíciles: cada paso
-  debe poder teclearse sin deducir nada. La dificultad está en el problema, no en adivinar qué se pide.
-- **Pasos en orden de construcción** y como acciones: «Declara…», «Crea…», «Recorre…», «Devuelve…».
-- **Todo nombrado**: función, parámetros con su tipo, variables auxiliares (con su valor inicial),
-  valor de retorno y qué devolver en cada caso especial.
-- **Bucles descritos por completo**: dónde empieza el índice, mientras qué condición continúa y
-  cómo avanza («i empieza en 0, continúa mientras i < arr.length y avanza de 1 en 1»). Cuando el
-  límite sea `arr.length - 1` como último índice, distínguelo de la condición del bucle.
+  resuelto en palabras que muestre qué pasa con los datos; (3) *Idea*: el concepto que entrena y
+  la trampa más común, sin dar los pasos. Prueba: quien lee solo la SITUACIÓN sabe qué se pide y
+  por qué.
+- **Máxima claridad en todos los ejercicios.** La dificultad está en el problema, no en adivinar
+  qué se pide ni qué formato tiene la salida.
+- **Todo nombrado en la interfaz**: función, parámetros con su tipo y valor devuelto. Las variables
+  internas las nombra el alumno.
 - **Reglas con valores exactos**: «5 o menos / más de 5», nunca «pocos». Cada borde aparece escrito.
-- **Qué NO hacer** donde haya tentación evidente: usar un método prohibido, mutar la entrada,
-  inicializar el máximo en 0, olvidar el último grupo tras el bucle.
-- **Casos límite dentro de los pasos** («si arr está vacío, devuelve [] y termina») y dentro de
-  COMPRUEBA, una línea por caso, anotada con lo que cubre.
+- **Casos límite** en QUÉ DEBES HACER («si arr está vacío, devuelve []») y en COMPRUEBA, una línea
+  por caso, anotada con lo que cubre.
 - **COMPRUEBA ejecutable**: cada línea es un `console.log` con su resultado tras `//`. Los textos
   se anotan con comillas. Si hay preparación (`const a = [...]`), va en líneas previas.
 - **Sin verbos vagos** (maneja, procesa, gestiona). Si algo admite dos lecturas, reescríbelo.
-- **Prueba de lectura**: lee solo SITUACIÓN y QUÉ DEBES HACER, sin COMPRUEBA. ¿Sabes qué teclear
-  en cada paso? Si no, reescríbelo.
 
 ## 9. Progresión y variedad
 
@@ -268,9 +313,14 @@ Realiza todo esto en el directorio temporal de la sesión, **nunca** dentro del 
    marca ✘. Si no lo detecta, añade un caso que lo exponga (en pruebas **y** en COMPRUEBA).
 5. **Aritmética**: revisa a mano al menos los ejemplos con cálculo (precios, porcentajes,
    acarreos, diagonales). Evita decimales binarios; si hay porcentajes, usa enteros.
-6. **Alcance**: la referencia solo usa lo permitido por la etapa y por el ejercicio.
-7. **Lectura final**: relee el compendio completo con la prueba de lectura (sección 8) y
-   revisa que no haya contradicciones entre cabecera, pasos y ejemplos.
+6. **Alcance y RESTRICCIONES**: la referencia solo usa lo permitido por la etapa y cumple
+   literalmente «Usa» y «No uses» de cada ejercicio. Si una restricción no puede cumplirse,
+   corrige el enunciado.
+7. **Lectura final**: relee el compendio completo con las dos pruebas de la sección 8: (a) lee solo
+   QUÉ DEBES HACER, ¿se puede teclear sin pensar? Si sí, reescribe; ¿falta algún caso por
+   definir? Si sí, añádelo; (b) revisa RESTRICCIONES: ¿nombra estructura, bucle/método y
+   prohibiciones concretas? Revisa también que no haya contradicciones entre cabecera, pasos y
+   ejemplos.
 
 ## 12. Teoría de apoyo (`01.Bases`)
 
