@@ -13,8 +13,10 @@ ORGANIZACIÓN
   Ejercicios 17–20 .... arreglos de arreglos (matrices)
 
 CÓMO TRABAJAR CADA EJERCICIO
-  1. Lee SITUACIÓN y RESTRICCIONES: te dicen qué problema resuelves y qué datos puedes esperar.
-  2. Sigue QUÉ DEBES HACER en orden, paso por paso. Cada paso es una acción concreta.
+  1. Lee SITUACIÓN y RESTRICCIONES: te dicen qué problema resuelves, qué datos puedes esperar
+     y con qué herramientas puedes (y no puedes) resolverlo.
+  2. QUÉ DEBES HACER dice QUÉ debe cumplir la función (entradas, salida, reglas y bordes), no
+     cómo: tú decides el algoritmo, respetando RESTRICCIONES.
   3. Escribe tu función debajo de «// TU SOLUCIÓN», con el nombre exacto que pide el enunciado.
   4. Antes de ejecutar, predice a mano el resultado de cada línea de COMPRUEBA
      (haz una tabla de seguimiento: variable por variable, vuelta por vuelta).
@@ -26,6 +28,9 @@ CÓMO TRABAJAR CADA EJERCICIO
      Para ver los valores, copia las líneas de COMPRUEBA debajo de tu función y ejecútalas.
   6. Si falla, NO cambies código al azar: haz la tabla de seguimiento con el caso que falló.
   7. Responde EXPLICA (y COMPLEJIDAD, cuando aparezca) en un comentario bajo tu solución.
+
+RESTRICCIONES = Datos (qué puedes esperar) / Usa (estructura de datos, bucle o método que debes
+emplear) / No uses (lo que está prohibido en ese ejercicio).
 
 VOCABULARIO DE LOS ENUNCIADOS
   «Devuelve» = usa return. Imprimir con console.log NO sustituye a devolver.
@@ -40,7 +45,8 @@ REGLAS
     (las pruebas lo verifican).
   - Prohibido en todo el archivo, salvo que el ejercicio lo permita: map, filter, reduce,
     forEach, find, some, every, sort, reverse, splice, slice, Math.max, Math.min, expresiones
-    regulares, Set y Map. El objetivo es dominar bucles, índices y condiciones.
+    regulares, Set y Map. Cada ejercicio concreta en «No uses» lo prohibido en él (puede
+    añadir más cosas a esta lista). El objetivo es dominar bucles, índices y condiciones.
   - Siempre permitido: variables, if/else, for, while, for...of, .length, .push() y Math.abs.
   - No hay soluciones incluidas. Las pruebas automáticas están al final: no las edites.
 */
@@ -64,18 +70,21 @@ SITUACIÓN
   inicio en cada día.
 
 RESTRICCIONES
+  Datos:
   - El arreglo puede estar vacío y puede tener números negativos.
+  Usa:
+  - Un arreglo de números como entrada y un arreglo nuevo como salida (se construye con .push()).
+  - Un solo recorrido con for...of.
+  No uses:
+  - map, reduce, slice ni ningún método de arreglo que construya el resultado por ti.
+  - No modifiques nums.
 
 QUÉ DEBES HACER
-  1. Declara la función runningSum(nums). Recibe un arreglo de números y devuelve un arreglo
-     nuevo.
-  2. Crea la variable «suma» con valor 0 y el arreglo «resultado» con valor [], ambos ANTES
-     del bucle.
-  3. Recorre nums con for...of: en cada vuelta tendrás un número «n».
-  4. En cada vuelta, suma n a «suma» y luego agrega el valor de «suma» a «resultado» con push.
-  5. Al terminar el bucle, devuelve «resultado». nums debe quedar intacto. Con un arreglo
-     vacío, el bucle no da ninguna vuelta y el resultado es [].
-  6. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función runningSum(nums). Recibe un arreglo de números y devuelve un arreglo nuevo.
+  2. El arreglo devuelto tiene el mismo tamaño que nums: en la posición i va la suma de nums[0]
+     hasta nums[i], ambos incluidos.
+  3. nums queda intacto. Con un arreglo vacío devuelve [].
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(runningSum([1, 2, 3, 4]));          // [1, 3, 6, 10]
@@ -88,6 +97,21 @@ EXPLICA
   ¿Por qué «suma» se declara fuera del bucle? ¿Qué pasaría si se declarara dentro?
 */
 // TU SOLUCIÓN
+
+{
+    function runningSum(nums){
+        let contador;
+        let newArray = []
+        for(const elemento in nums){
+            contador += elemento
+            newArray.push(contador)
+        }
+        
+        
+        return newArray
+    }
+}
+
 
 
 // EJERCICIO 02 — Número faltante (LC 268 · Missing Number)
@@ -105,16 +129,22 @@ SITUACIÓN
   hay, lo que sobra es la ficha que falta.
 
 RESTRICCIONES
-  - Hay n fichas distintas, con valores entre 0 y n. Falta exactamente una.
+  Datos:
+  - nums contiene n enteros distintos, todos entre 0 y n (ambos incluidos). Falta exactamente un
+    valor de ese rango.
   - n puede ser 1 (un arreglo de un solo elemento).
+  Usa:
+  - Un arreglo de enteros como entrada; solo variables numéricas, sin arreglos auxiliares.
+  - Un solo recorrido, con for o for...of.
+  No uses:
+  - sort, includes, indexOf, Set, Map ni bucles anidados.
+  - No modifiques nums.
 
 QUÉ DEBES HACER
-  1. Declara la función missingNumber(nums). Recibe un arreglo de enteros y devuelve un entero.
-  2. Crea la variable «n» con valor nums.length.
-  3. Calcula la suma esperada de 0 a n con la fórmula: «esperada» = n * (n + 1) / 2.
-  4. Crea la variable «real» con valor 0 y recorre nums sumando cada elemento a «real».
-  5. Devuelve «esperada» - «real».
-  6. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función missingNumber(nums). Recibe un arreglo de n enteros y devuelve un entero.
+  2. Devuelve el único valor del rango de 0 a n (ambos incluidos) que no aparece en nums.
+  3. Con [0] devuelve 1 y con [1] devuelve 0. nums queda intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(missingNumber([3, 0, 1]));                  // 2
@@ -147,19 +177,23 @@ SITUACIÓN
   llevando la suma de la izquierda; la de la derecha sale de: total - izquierda - elemento actual.
 
 RESTRICCIONES
-  - El arreglo puede estar vacío (devuelve -1) y puede tener negativos.
-  - Un lado vacío suma 0.
+  Datos:
+  - El arreglo puede estar vacío y puede tener números negativos.
+  - Un lado sin elementos suma 0.
+  Usa:
+  - Un arreglo de enteros como entrada; solo variables numéricas, sin arreglos auxiliares.
+  - Bucles for con índice, sin anidarlos: como máximo dos recorridos en total.
+  No uses:
+  - Bucles anidados, reduce, slice ni arreglos auxiliares.
+  - No modifiques nums.
 
 QUÉ DEBES HACER
   1. Declara la función pivotIndex(nums). Recibe un arreglo de enteros y devuelve un entero.
-  2. Calcula «total», la suma de todos los elementos, con un primer recorrido.
-  3. Crea la variable «izquierda» con valor 0 (la suma de lo que queda a la izquierda).
-  4. Recorre nums con un for: i empieza en 0, continúa mientras i < nums.length y avanza de 1 en 1.
-  5. En cada vuelta calcula «derecha» = total - izquierda - nums[i].
-  6. Si «izquierda» es igual a «derecha», devuelve i (ya terminaste).
-  7. Si no, suma nums[i] a «izquierda» y pasa a la siguiente vuelta.
-  8. Si el bucle termina sin haber devuelto nada, devuelve -1.
-  9. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Devuelve el índice i más pequeño que cumple que la suma de los elementos con índice menor que
+     i es igual a la suma de los elementos con índice mayor que i (nums[i] no cuenta en ninguno de
+     los dos lados).
+  3. Si ningún índice cumple la condición, o si nums está vacío, devuelve -1. nums queda intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(pivotIndex([1, 7, 3, 6, 5, 6]));   // 3
@@ -190,16 +224,22 @@ SITUACIÓN
   (se reinicia con cada 0). «mejor»: ¿cuál fue la racha más larga que he visto? (solo crece).
 
 RESTRICCIONES
+  Datos:
   - El arreglo solo contiene 0 y 1, y puede estar vacío.
+  Usa:
+  - Un arreglo de ceros y unos como entrada; solo variables numéricas, sin arreglos auxiliares.
+  - Un solo recorrido con for...of.
+  No uses:
+  - Math.max, reduce, sort, split, join ni arreglos auxiliares.
+  - No modifiques nums.
 
 QUÉ DEBES HACER
-  1. Declara la función findMaxConsecutiveOnes(nums). Recibe un arreglo y devuelve un número.
-  2. Crea las variables «actual» y «mejor», ambas con valor 0.
-  3. Recorre nums con for...of: en cada vuelta tendrás un número «n».
-  4. Si n es 1: suma 1 a «actual» y, si «actual» es mayor que «mejor», guarda «actual» en «mejor».
-  5. Si n es 0: reinicia «actual» a 0.
-  6. Al terminar el bucle, devuelve «mejor».
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función findMaxConsecutiveOnes(nums). Recibe un arreglo de 0 y 1 y devuelve un
+     número.
+  2. Devuelve la longitud de la tira más larga de unos seguidos (sin ningún 0 en medio) que hay en
+     nums.
+  3. Si no hay ningún 1, o si nums está vacío, devuelve 0. nums queda intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(findMaxConsecutiveOnes([1, 1, 0, 1, 1, 1]));   // 3
@@ -230,19 +270,22 @@ SITUACIÓN
   desempate (misma distancia) se resuelve con una segunda condición.
 
 RESTRICCIONES
+  Datos:
   - nums tiene al menos 1 elemento. Puede haber ceros y repetidos.
+  Usa:
+  - Un arreglo de números como entrada; solo variables numéricas, sin arreglos auxiliares.
+  - Un solo recorrido, con for o for...of, y Math.abs.
+  No uses:
+  - sort, Math.min, reduce, filter ni arreglos auxiliares.
+  - No modifiques nums.
 
 QUÉ DEBES HACER
-  1. Declara la función findClosestNumber(nums). Recibe un arreglo y devuelve un número.
-  2. Crea la variable «cercano» y asígnale el PRIMER elemento (nums[0]).
-  3. Recorre nums desde el índice 1: i empieza en 1, continúa mientras i < nums.length y avanza
-     de 1 en 1.
-  4. En cada vuelta, sea n = nums[i]. Si Math.abs(n) es MENOR que Math.abs(cercano), guarda n
-     en «cercano».
-  5. Si no, y Math.abs(n) es IGUAL a Math.abs(cercano), y n es mayor que «cercano», guarda
-     n en «cercano» (desempate a favor del positivo).
-  6. Al terminar el bucle, devuelve «cercano».
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función findClosestNumber(nums). Recibe un arreglo de números y devuelve un número.
+  2. Devuelve el elemento de nums cuyo valor absoluto es el menor (el elemento, no su distancia).
+     Con un solo elemento, devuelve ese elemento.
+  3. Si hay un empate de distancia (por ejemplo -2 y 2), devuelve el elemento positivo. nums queda
+     intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(findClosestNumber([-4, -2, 1, 4, 8]));   // 1
@@ -272,19 +315,23 @@ SITUACIÓN
   el conteo sube 1.
 
 RESTRICCIONES
-  - Las alturas son enteros positivos. El arreglo puede estar vacío (devuelve 0).
+  Datos:
+  - Las alturas son enteros positivos.
+  - El arreglo puede estar vacío.
+  Usa:
+  - Un arreglo de enteros como entrada; solo variables numéricas, sin arreglos auxiliares.
+  - Un solo recorrido, con for o for...of.
+  No uses:
+  - Math.max, sort, filter, reduce ni un segundo recorrido.
+  - No modifiques candles.
 
 QUÉ DEBES HACER
-  1. Declara la función birthdayCakeCandles(candles). Recibe un arreglo y devuelve un número.
-  2. Si el arreglo está vacío, devuelve 0 y termina.
-  3. Crea la variable «maxima» con valor candles[0] y la variable «cuenta» con valor 1.
-  4. Recorre candles desde el índice 1: i empieza en 1, continúa mientras i < candles.length y
-     avanza de 1 en 1.
-  5. En cada vuelta, sea c = candles[i]:
-     a) si c es mayor que «maxima»: guarda c en «maxima» y pon «cuenta» en 1;
-     b) si no, si c es igual a «maxima»: suma 1 a «cuenta».
-  6. Al terminar el bucle, devuelve «cuenta».
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función birthdayCakeCandles(candles). Recibe un arreglo de enteros y devuelve un
+     número.
+  2. Devuelve cuántos elementos de candles son iguales al valor máximo del arreglo (la cantidad,
+     no el valor).
+  3. Con un arreglo vacío devuelve 0. candles queda intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(birthdayCakeCandles([3, 2, 1, 3]));            // 2
@@ -323,18 +370,22 @@ SITUACIÓN
   menos el menor.
 
 RESTRICCIONES
+  Datos:
   - El arreglo tiene al menos 2 elementos. Puede haber repetidos.
+  Usa:
+  - Un arreglo de enteros como entrada; solo variables numéricas, sin arreglos auxiliares.
+  - Un solo recorrido con for...of. El resultado se devuelve como un arreglo literal de dos números.
+  No uses:
+  - sort, Math.min, Math.max, reduce, slice ni arreglos auxiliares.
+  - No modifiques arr.
 
 QUÉ DEBES HACER
-  1. Declara la función miniMaxSum(arr). Recibe un arreglo de enteros y devuelve un arreglo
-     de dos números.
-  2. Crea las variables «total» con valor 0, «menor» con valor arr[0] y «mayor» con valor arr[0].
-  3. Recorre arr con for...of: en cada vuelta tendrás un número «n».
-  4. En cada vuelta: suma n a «total»; si n es menor que «menor», guárdalo en «menor»; si n es
-     mayor que «mayor», guárdalo en «mayor».
-  5. Devuelve [total - mayor, total - menor].
-  6. Prohibido: sort, Math.min y Math.max.
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función miniMaxSum(arr). Recibe un arreglo de enteros y devuelve un arreglo de dos
+     números [sumaMinima, sumaMaxima].
+  2. Cada suma se obtiene sumando todos los elementos de arr menos exactamente uno. sumaMinima es
+     la menor de esas sumas posibles y sumaMaxima la mayor.
+  3. Si todos los elementos son iguales, ambos valores coinciden. arr queda intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(miniMaxSum([1, 2, 3, 4, 5]));             // [10, 14]
@@ -363,19 +414,23 @@ SITUACIÓN
   entre el total de elementos. Para redondear a 6 decimales: Number((x).toFixed(6)).
 
 RESTRICCIONES
+  Datos:
   - El arreglo tiene al menos 1 elemento.
+  Usa:
+  - Un arreglo de enteros como entrada; solo variables numéricas, sin arreglos auxiliares para
+    contar.
+  - Un solo recorrido con for...of. Para redondear: Number((x).toFixed(6)).
+  No uses:
+  - filter, reduce, Math.round ni un segundo recorrido.
+  - No modifiques arr.
 
 QUÉ DEBES HACER
-  1. Declara la función plusMinus(arr). Recibe un arreglo de enteros y devuelve un arreglo
-     de tres números.
-  2. Crea tres contadores con valor 0: «positivos», «negativos» y «ceros».
-  3. Recorre arr con for...of: en cada vuelta tendrás un número «n».
-  4. Si n es mayor que 0, suma 1 a «positivos»; si es menor que 0, suma 1 a «negativos»; en
-     otro caso, suma 1 a «ceros».
-  5. Crea «total» con valor arr.length.
-  6. Devuelve un arreglo con tres valores, en este orden: positivos / total, negativos / total
-     y ceros / total, cada uno convertido con Number((valor).toFixed(6)).
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función plusMinus(arr). Recibe un arreglo de enteros y devuelve un arreglo de tres
+     números [proporciónPositivos, proporciónNegativos, proporciónCeros].
+  2. Cada proporción es la cantidad de elementos de esa clase (mayores que 0, menores que 0 o
+     iguales a 0) dividida entre arr.length, redondeada a 6 decimales.
+  3. Si una clase no tiene elementos, su proporción es 0. arr queda intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(plusMinus([-4, 3, -9, 0, 4, 1]));   // [0.5, 0.333333, 0.166667]
@@ -403,17 +458,23 @@ SITUACIÓN
   apaga su bandera. Al final basta con que una siga encendida.
 
 RESTRICCIONES
-  - El arreglo puede estar vacío o tener un solo elemento (en ambos casos es monótono).
+  Datos:
+  - El arreglo puede estar vacío o tener un solo elemento.
+  Usa:
+  - Un arreglo de números como entrada y un booleano como salida; solo variables, sin arreglos
+    auxiliares.
+  - Un solo recorrido con for.
+  No uses:
+  - sort, every, some, slice, reverse ni arreglos auxiliares.
+  - No modifiques nums.
 
 QUÉ DEBES HACER
-  1. Declara la función isMonotonic(nums). Recibe un arreglo y devuelve un booleano.
-  2. Crea las variables «creciente» y «decreciente», ambas con valor true.
-  3. Recorre nums con un for: i empieza en 1, continúa mientras i < nums.length y avanza de 1 en 1.
-  4. En cada vuelta compara nums[i] con nums[i - 1]:
-     a) si nums[i] es MAYOR que nums[i - 1], haz decreciente = false;
-     b) si nums[i] es MENOR que nums[i - 1], haz creciente = false.
-  5. Al terminar el bucle, devuelve creciente || decreciente.
-  6. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función isMonotonic(nums). Recibe un arreglo de números y devuelve un booleano.
+  2. Devuelve true si cada elemento es mayor o igual que el anterior (nunca baja) o si cada
+     elemento es menor o igual que el anterior (nunca sube). Devuelve false si hay al menos una
+     subida y al menos una bajada.
+  3. Con un arreglo vacío o de un solo elemento devuelve true. nums queda intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(isMonotonic([1, 2, 2, 3]));   // true
@@ -445,22 +506,25 @@ SITUACIÓN
   vacía. Al sembrar, esa posición pasa a estar ocupada para las siguientes.
 
 RESTRICCIONES
-  - El parterre solo contiene 0 y 1 y no tiene flores vecinas al inicio. n es 0 o mayor.
+  Datos:
+  - El parterre solo contiene 0 y 1, y al inicio no hay dos flores en posiciones vecinas.
+  - n es un entero mayor o igual que 0.
+  Usa:
+  - Un arreglo de 0 y 1 y un número como entrada; un booleano como salida.
+  - Un solo recorrido con for con índice.
+  No uses:
+  - splice, slice, regex ni recursión.
+  - No modifiques flowerbed.
 
 QUÉ DEBES HACER
-  1. Declara la función canPlaceFlowers(flowerbed, n). Recibe un arreglo y un número, y
+  1. Declara la función canPlaceFlowers(flowerbed, n). Recibe un arreglo de 0 y 1 y un número, y
      devuelve un booleano.
-  2. Crea una COPIA del arreglo en «parterre» ([...flowerbed]) para no modificar el original.
-     Crea «sembradas» con valor 0.
-  3. Recorre «parterre» con un for: i empieza en 0, continúa mientras i < parterre.length y
-     avanza de 1 en 1.
-  4. En cada vuelta, siembra en i si se cumplen LAS TRES condiciones:
-     a) parterre[i] es 0;
-     b) i es 0 (no hay vecino izquierdo) O parterre[i - 1] es 0;
-     c) i es el último índice (no hay vecino derecho) O parterre[i + 1] es 0.
-  5. Sembrar significa: parterre[i] = 1 y sumar 1 a «sembradas».
-  6. Al terminar el bucle, devuelve sembradas >= n.
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Dos posiciones son vecinas si sus índices son consecutivos; los extremos solo tienen un
+     vecino. Una flor nueva solo puede ir en una posición con 0, y ninguna flor (ya sembrada o
+     nueva) puede quedar vecina de otra.
+  3. Devuelve true si se pueden sembrar al menos n flores nuevas cumpliendo esa regla y false en
+     caso contrario. Con n igual a 0 devuelve true. flowerbed queda intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(canPlaceFlowers([1, 0, 0, 0, 1], 1));   // true
@@ -494,21 +558,22 @@ SITUACIÓN
   desplaza a los que quedan por debajo.
 
 RESTRICCIONES
+  Datos:
   - nums tiene al menos 1 elemento. Puede haber repetidos y negativos.
+  Usa:
+  - Un arreglo de números como entrada; solo variables, sin arreglos auxiliares.
+  - Un solo recorrido con for...of.
+  No uses:
+  - sort, Set, Map, includes, Math.max, Math.min ni arreglos auxiliares.
+  - No modifiques nums.
 
 QUÉ DEBES HACER
-  1. Declara la función thirdMax(nums). Recibe un arreglo y devuelve un número.
-  2. Crea tres variables sin valor inicial: «primero», «segundo» y «tercero».
-  3. Recorre nums con for...of: en cada vuelta tendrás un número «n».
-  4. Si n es igual a «primero», a «segundo» o a «tercero», sáltalo (continue): ya está contado.
-  5. Si «primero» es undefined o n es mayor que «primero»: haz tercero = segundo,
-     segundo = primero y primero = n.
-  6. Si no, y («segundo» es undefined o n es mayor que «segundo»): haz tercero = segundo y
-     segundo = n.
-  7. Si no, y («tercero» es undefined o n es mayor que «tercero»): haz tercero = n.
-  8. Al terminar el bucle, si «tercero» es undefined devuelve «primero»; si no, devuelve «tercero».
-  9. Prohibido: sort, Set, Math.max y Math.min.
-  10. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función thirdMax(nums). Recibe un arreglo de números y devuelve un número.
+  2. Devuelve el tercer valor más grande entre los valores distintos de nums (un valor repetido
+     cuenta una sola vez).
+  3. Si nums tiene menos de tres valores distintos, devuelve el valor más grande. nums queda
+     intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(thirdMax([3, 2, 1]));          // 1
@@ -542,18 +607,21 @@ SITUACIÓN
   pasada con tres acumuladores: el mayor, su índice y el segundo mayor.
 
 RESTRICCIONES
+  Datos:
   - nums tiene al menos 1 elemento. Todos los valores son 0 o mayores.
+  Usa:
+  - Un arreglo de enteros como entrada; solo variables numéricas, sin arreglos auxiliares.
+  - Un solo recorrido con for.
+  No uses:
+  - sort, Math.max, indexOf, bucles anidados ni arreglos auxiliares.
+  - No modifiques nums.
 
 QUÉ DEBES HACER
-  1. Declara la función dominantIndex(nums). Recibe un arreglo y devuelve un entero.
-  2. Crea «mayor» con valor nums[0], «indice» con valor 0 y «segundo» con valor -Infinity.
-  3. Recorre nums desde el índice 1: i empieza en 1, continúa mientras i < nums.length y avanza
-     de 1 en 1.
-  4. En cada vuelta, sea n = nums[i]:
-     a) si n es mayor que «mayor»: haz segundo = mayor, mayor = n e indice = i;
-     b) si no, y n es mayor que «segundo»: haz segundo = n.
-  5. Al terminar el bucle, devuelve «indice» si mayor >= 2 * segundo; si no, devuelve -1.
-  6. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función dominantIndex(nums). Recibe un arreglo de enteros y devuelve un entero.
+  2. Sea M el valor más grande de nums. Devuelve el índice de M si M es mayor o igual que el doble
+     de cada uno de los demás elementos; si no, devuelve -1.
+  3. Si M aparece más de una vez, devuelve -1. Con un solo elemento devuelve 0. nums queda intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(dominantIndex([3, 6, 1, 0]));   // 1
@@ -591,21 +659,26 @@ SITUACIÓN
   de «leer», no se pisa ningún dato pendiente.
 
 RESTRICCIONES
-  - Modifica el arreglo EN EL SITIO. No crees otro arreglo ni uses splice, filter ni slice.
-  - Debes devolver el número k de elementos que quedan; solo importan las primeras k posiciones.
-  - slice aparece en las líneas de COMPRUEBA solo para mirar esas k posiciones; tu solución no
-    debe usarlo.
+  Datos:
+  - nums puede estar vacío y val puede no aparecer en él.
+  Usa:
+  - Un arreglo de números que se modifica EN EL SITIO; solo variables numéricas, sin arreglos
+    auxiliares.
+  - Un solo recorrido con for con índice.
+  No uses:
+  - splice, filter, slice, push ni ningún arreglo auxiliar o copia.
+  - slice aparece en las líneas de COMPRUEBA solo para mirar las primeras k posiciones; tu
+    solución no debe usarlo.
 
 QUÉ DEBES HACER
-  1. Declara la función removeElement(nums, val). Recibe un arreglo y un valor, y devuelve un
-     entero.
-  2. Crea la variable «escribir» con valor 0.
-  3. Recorre nums con un for: «leer» empieza en 0, continúa mientras leer < nums.length y avanza
-     de 1 en 1.
-  4. En cada vuelta, si nums[leer] es DISTINTO de val: copia nums[leer] en nums[escribir] y
-     suma 1 a «escribir».
-  5. Al terminar el bucle, devuelve «escribir».
-  6. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función removeElement(nums, val). Recibe un arreglo de números y un valor, y
+     devuelve un entero k.
+  2. k es la cantidad de elementos de nums distintos de val.
+  3. Al terminar, las primeras k posiciones de nums contienen esos elementos, en su orden
+     original. Lo que haya desde la posición k en adelante no importa.
+  4. Con un arreglo vacío o si val no aparece, el resultado sigue esa misma regla (k = 0, o k =
+     nums.length con el arreglo igual).
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   const a = [3, 2, 2, 3];
@@ -643,19 +716,23 @@ SITUACIÓN
   anterior, con otra condición.
 
 RESTRICCIONES
-  - El arreglo está ordenado de menor a mayor (puede haber repetidos) y puede estar vacío.
-  - Modifica el arreglo EN EL SITIO: no crees otro arreglo.
+  Datos:
+  - El arreglo está ordenado de menor a mayor, puede tener repetidos y puede estar vacío.
+  Usa:
+  - Un arreglo de números que se modifica EN EL SITIO; solo variables numéricas, sin arreglos
+    auxiliares.
+  - Un solo recorrido con for con índice.
+  No uses:
+  - splice, filter, slice, Set ni ningún arreglo auxiliar o copia.
 
 QUÉ DEBES HACER
-  1. Declara la función removeDuplicates(nums). Recibe un arreglo ordenado y devuelve un entero.
-  2. Si el arreglo está vacío, devuelve 0 y termina.
-  3. Crea la variable «escribir» con valor 1 (la posición 0 ya está guardada).
-  4. Recorre nums con un for: «leer» empieza en 1, continúa mientras leer < nums.length y avanza
-     de 1 en 1.
-  5. En cada vuelta, si nums[leer] es DISTINTO de nums[escribir - 1] (el último guardado):
-     copia nums[leer] en nums[escribir] y suma 1 a «escribir».
-  6. Al terminar el bucle, devuelve «escribir».
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función removeDuplicates(nums). Recibe un arreglo ordenado de menor a mayor y
+     devuelve un entero k.
+  2. k es la cantidad de valores distintos de nums.
+  3. Al terminar, las primeras k posiciones de nums contienen esos valores distintos, una vez cada
+     uno y en orden ascendente. Lo que haya desde la posición k en adelante no importa.
+  4. Con un arreglo vacío devuelve 0.
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   const a = [1, 1, 2];
@@ -693,16 +770,25 @@ SITUACIÓN
   mitad está exactamente n posiciones más adelante: i + n.
 
 RESTRICCIONES
+  Datos:
   - nums.length es exactamente 2 × n. Puede ser 0 (n = 0).
+  Usa:
+  - Un arreglo de números y un número como entrada; un arreglo nuevo como salida (se construye con
+    .push()).
+  - Un solo recorrido con for con índice.
+  No uses:
+  - map, slice, concat, splice ni ningún método que arme el resultado por ti.
+  - No modifiques nums.
 
 QUÉ DEBES HACER
-  1. Declara la función shuffle(nums, n). Recibe un arreglo y un número, y devuelve un arreglo
-     nuevo.
-  2. Crea el arreglo «resultado» con valor [].
-  3. Recorre con un for: i empieza en 0, continúa mientras i < n y avanza de 1 en 1.
-  4. En cada vuelta, agrega a «resultado» primero nums[i] y luego nums[i + n], en ese orden.
-  5. Al terminar el bucle, devuelve «resultado». nums debe quedar intacto.
-  6. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función shuffle(nums, n). Recibe un arreglo de 2n números y el número n, y
+     devuelve un arreglo nuevo.
+  2. La primera mitad de nums son las posiciones 0 a n - 1 y la segunda mitad, las posiciones n a
+     2n - 1. El arreglo devuelto tiene 2n elementos y alterna: un elemento de la primera mitad
+     seguido de su pareja de la segunda mitad (la que ocupa la misma posición dentro de su mitad),
+     en el orden de la primera mitad.
+  3. nums queda intacto. Con n igual a 0 devuelve [].
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(shuffle([2, 5, 1, 3, 4, 7], 3));          // [2, 3, 5, 4, 1, 7]
@@ -732,17 +818,24 @@ SITUACIÓN
   idea de vuelta del operador % del ejercicio de rotación.
 
 RESTRICCIONES
+  Datos:
   - nums tiene al menos 1 elemento. Puede haber repetidos.
+  Usa:
+  - Un arreglo de números como entrada y un booleano como salida; solo variables, sin arreglos
+    auxiliares.
+  - Un solo recorrido con for con índice. El operador % está permitido.
+  No uses:
+  - sort, slice, concat, indexOf ni arreglos auxiliares.
+  - No modifiques nums.
 
 QUÉ DEBES HACER
-  1. Declara la función isSortedAndRotated(nums). Recibe un arreglo y devuelve un booleano.
-  2. Crea la variable «descensos» con valor 0.
-  3. Recorre nums con un for: i empieza en 0, continúa mientras i < nums.length y avanza de 1 en 1.
-  4. En cada vuelta compara nums[i] con el siguiente elemento, que está en la posición
-     (i + 1) % nums.length (para el último, el siguiente es el primero).
-  5. Si nums[i] es MAYOR que ese siguiente, suma 1 a «descensos».
-  6. Al terminar el bucle, devuelve descensos <= 1.
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función isSortedAndRotated(nums). Recibe un arreglo de números y devuelve un
+     booleano.
+  2. Rotar k posiciones significa pasar los primeros k elementos al final, sin cambiar su orden.
+     Devuelve true si existe un arreglo ordenado de menor a mayor (con repetidos permitidos) que,
+     rotado k posiciones con k de 0 o más, da nums. Si no existe, devuelve false.
+  3. Un arreglo de un solo elemento devuelve true. nums queda intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(isSortedAndRotated([3, 4, 5, 1, 2]));   // true
@@ -778,20 +871,22 @@ SITUACIÓN
   Al terminar cada cliente se compara su suma con la mejor vista.
 
 RESTRICCIONES
+  Datos:
   - Hay al menos 1 cliente y 1 cuenta. Todo el dinero es 0 o mayor.
+  Usa:
+  - Una matriz de números como entrada; solo variables numéricas, sin arreglos auxiliares.
+  - Dos bucles for con índice, uno dentro del otro.
+  No uses:
+  - reduce, map, Math.max, flat ni arreglos auxiliares.
+  - No modifiques accounts.
 
 QUÉ DEBES HACER
-  1. Declara la función maximumWealth(accounts). Recibe una matriz y devuelve un número.
-  2. Crea la variable «mayor» con valor 0. (Aquí sí puede empezar en 0: nadie tiene dinero
-     negativo.)
-  3. Recorre las filas con un for: i empieza en 0, continúa mientras i < accounts.length y avanza
-     de 1 en 1.
-  4. DENTRO de esa vuelta, crea «riqueza» con valor 0 (se reinicia por cliente) y recorre las
-     columnas de accounts[i] con otro for (j desde 0 mientras j < accounts[i].length),
-     sumando accounts[i][j] a «riqueza».
-  5. Al terminar el bucle interior, si «riqueza» es mayor que «mayor», guárdala en «mayor».
-  6. Al terminar el bucle exterior, devuelve «mayor».
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función maximumWealth(accounts). Recibe una matriz (cada fila es un cliente, cada
+     columna una cuenta) y devuelve un número.
+  2. La riqueza de un cliente es la suma de todos los valores de su fila. Devuelve la mayor
+     riqueza entre todos los clientes (el valor, no el cliente).
+  3. accounts queda intacta.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(maximumWealth([[1, 2, 3], [3, 2, 1]]));             // 6   (empate entre los dos)
@@ -823,16 +918,24 @@ SITUACIÓN
   columna i, y el de la secundaria en la columna n - 1 - i.
 
 RESTRICCIONES
-  - La matriz es cuadrada, con al menos 1 fila.
+  Datos:
+  - La matriz es cuadrada, con al menos 1 fila. Puede haber negativos.
+  Usa:
+  - Una matriz cuadrada de números como entrada; solo variables numéricas, sin arreglos auxiliares.
+  - Un solo bucle for con índice (sin anidar) y Math.abs.
+  No uses:
+  - Bucles anidados, reduce, map ni arreglos auxiliares.
+  - No modifiques matrix.
 
 QUÉ DEBES HACER
-  1. Declara la función diagonalDifference(matrix). Recibe una matriz y devuelve un número.
-  2. Crea «n» con valor matrix.length, y las variables «principal» y «secundaria», ambas con
-     valor 0.
-  3. Recorre las filas con un for: i empieza en 0, continúa mientras i < n y avanza de 1 en 1.
-  4. En cada vuelta, suma matrix[i][i] a «principal» y matrix[i][n - 1 - i] a «secundaria».
-  5. Devuelve Math.abs(principal - secundaria).
-  6. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función diagonalDifference(matrix). Recibe una matriz cuadrada de números y
+     devuelve un número.
+  2. La diagonal principal va de la esquina superior izquierda a la inferior derecha; la
+     secundaria, de la esquina superior derecha a la inferior izquierda. Devuelve el valor
+     absoluto de (suma de la diagonal principal - suma de la diagonal secundaria).
+  3. En una matriz de 1 × 1 ambas diagonales son esa única celda y el resultado es 0. matrix queda
+     intacta.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(diagonalDifference([[11, 2, 4], [4, 5, 6], [10, 8, -12]]));   // 15
@@ -861,20 +964,22 @@ SITUACIÓN
   columna c de la original de arriba abajo: matriz[0][c], matriz[1][c], matriz[2][c]...
 
 RESTRICCIONES
-  - La matriz tiene al menos 1 fila y 1 columna y es rectangular (todas las filas miden lo mismo).
+  Datos:
+  - La matriz tiene al menos 1 fila y 1 columna, y es rectangular (todas las filas miden lo mismo).
+  Usa:
+  - Una matriz de números como entrada y una matriz nueva como salida (se construye con .push()).
+  - Dos bucles for con índice, uno dentro del otro.
+  No uses:
+  - map, reduce, flat, slice ni reutilizar las filas de la original dentro del resultado.
+  - No modifiques matrix.
 
 QUÉ DEBES HACER
-  1. Declara la función transpose(matrix). Recibe una matriz y devuelve una matriz nueva.
-  2. Crea «filas» con valor matrix.length, «columnas» con valor matrix[0].length y «resultado»
-     con valor [].
-  3. Recorre las columnas de la original con un for: c empieza en 0, continúa mientras
-     c < columnas y avanza de 1 en 1.
-  4. En cada vuelta crea «nuevaFila» con valor [] y recorre las filas de la original con otro
-     for: f empieza en 0, continúa mientras f < filas y avanza de 1 en 1. En cada vuelta de
-     f, agrega matrix[f][c] a «nuevaFila».
-  5. Al terminar el bucle interior, agrega «nuevaFila» a «resultado».
-  6. Al terminar el bucle exterior, devuelve «resultado». La matriz original debe quedar intacta.
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función transpose(matrix). Recibe una matriz de m filas y n columnas y devuelve
+     una matriz nueva de n filas y m columnas.
+  2. En el resultado, el elemento de la fila i y la columna j es el elemento de la fila j y la
+     columna i de la original.
+  3. matrix queda intacta.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(transpose([[1, 2, 3], [4, 5, 6], [7, 8, 9]]));   // [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
@@ -906,20 +1011,23 @@ SITUACIÓN
   + triangulo[fila - 1][j].
 
 RESTRICCIONES
-  - numRows es un entero mayor o igual que 0 (con 0 se devuelve un triángulo vacío).
+  Datos:
+  - numRows es un entero mayor o igual que 0.
+  Usa:
+  - Un número como entrada y una matriz nueva como salida (se construye con .push()).
+  - Dos bucles for con índice, uno dentro del otro.
+  No uses:
+  - Recursión, factoriales ni fórmulas combinatorias, map, slice ni ningún método que arme las
+    filas por ti.
 
 QUÉ DEBES HACER
-  1. Declara la función generatePascal(numRows). Recibe un entero y devuelve una matriz.
-  2. Crea el arreglo «triangulo» con valor [].
-  3. Recorre las filas con un for: «fila» empieza en 0, continúa mientras fila < numRows y avanza
-     de 1 en 1.
-  4. En cada vuelta crea «nueva» con valor [] y recorre las posiciones con otro for: j empieza
-     en 0, continúa mientras j <= fila y avanza de 1 en 1.
-  5. En cada posición j: si j es 0 o j es igual a «fila» (los extremos), agrega 1 a «nueva»; si
-     no, agrega triangulo[fila - 1][j - 1] + triangulo[fila - 1][j].
-  6. Al terminar el bucle interior, agrega «nueva» a «triangulo».
-  7. Al terminar el bucle exterior, devuelve «triangulo».
-  8. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función generatePascal(numRows). Recibe un entero y devuelve una matriz con
+     numRows filas.
+  2. La fila de posición k (la primera es la 0) tiene k + 1 elementos. Su primer y su último
+     elemento valen 1; cada elemento intermedio es la suma de los dos elementos de la fila
+     anterior que tiene encima (el de su misma columna y el de la columna anterior).
+  3. Con numRows igual a 0 devuelve [].
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(generatePascal(5));   // [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]
