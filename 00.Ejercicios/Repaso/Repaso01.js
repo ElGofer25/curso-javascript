@@ -10,7 +10,8 @@ ORGANIZACIÓN
   Ejercicios 17–20 .... integración estilo LeetCode (acumuladores, bordes, dos índices)
 
 CÓMO TRABAJAR CADA EJERCICIO
-  1. Lee SITUACIÓN: te dice qué problema resuelves.
+  1. Lee SITUACIÓN: te dice qué problema resuelves. Luego lee PERMITIDO y NO PERMITIDO:
+     te dicen con qué herramientas puedes resolverlo y cuáles debes evitar.
   2. Sigue QUÉ DEBES HACER en orden, paso por paso. Cada paso es una acción concreta.
   3. Escribe tu función debajo de «// TU SOLUCIÓN», con el nombre exacto que pide el enunciado.
   4. Antes de ejecutar, predice a mano el resultado de cada línea de COMPRUEBA
@@ -33,11 +34,17 @@ VOCABULARIO DE LOS ENUNCIADOS
 
 REGLAS
   - No modifiques los argumentos recibidos, salvo que el ejercicio lo pida (las pruebas lo verifican).
-  - Prohibido en todo el archivo, salvo que el ejercicio lo permita: map, filter, reduce,
-    forEach, find, some, every, sort, reverse, Math.max, Math.min, expresiones regulares,
-    Set y Map. El objetivo es dominar bucles, índices y condiciones.
-  - Siempre permitido: variables, if/else, switch, for, while, for...of, .length, .push(),
-    .includes() y los métodos de string que se indiquen.
+  - Cada ejercicio trae dos listas, y esa lista manda sobre esta cabecera:
+      PERMITIDO ...... las herramientas que el ejercicio espera que uses.
+      NO PERMITIDO ... lo que NO debes usar en ese ejercicio.
+    Lo que no aparece en NO PERMITIDO sí se puede usar. Si dudas de un método, busca su
+    nombre en la lista del ejercicio, no aquí.
+  - Prohibido en todos los ejercicios, salvo que uno lo permita expresamente: map, filter,
+    reduce, forEach, find, some, every, sort, reverse, Math.max, Math.min, expresiones
+    regulares, Set y Map. El objetivo es dominar bucles, índices y condiciones. Cada
+    ejercicio vuelve a nombrarlos en su NO PERMITIDO.
+  - Permitido en todos (salvo que el ejercicio diga lo contrario): variables, if/else,
+    switch, for, while, for...of, .length, .push() e .includes().
   - No hay soluciones incluidas. Las pruebas automáticas están al final: no las edites.
 */
 
@@ -45,7 +52,7 @@ REGLAS
 // BLOQUE A — ARRAYS E ÍNDICES
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 01 — Extremos de un arreglo
+//! EJERCICIO 01 — Extremos de un arreglo
 /*
 SITUACIÓN
   Una estación meteorológica guarda las temperaturas del día en un arreglo, de la primera
@@ -57,6 +64,16 @@ SITUACIÓN
 
   Idea: acceso por índice. La primera lectura está en la posición 0 y la última en la
   posición arr.length - 1; no hace falta recorrer nada.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - Indexar: arr[0] y arr[arr.length - 1]; usar .length.
+  - Crear un arreglo nuevo con [] y usar .push() sobre ESE arreglo nuevo (o escribir [a, b] directo).
+  - .includes() (aquí no hace falta).
+NO PERMITIDO
+  - .at().
+  - Modificar arr con push, pop, shift, unshift o splice.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función extremos(arr). Recibe un arreglo de números y devuelve un arreglo.
@@ -92,7 +109,7 @@ EXPLICA
 
 }
 
-// EJERCICIO 02 — Contar los que superan un límite
+//! EJERCICIO 02 — Contar los que superan un límite
 /*
 SITUACIÓN
   Una persona anotó la temperatura de cada día de la semana y quiere saber en cuántos días
@@ -104,6 +121,14 @@ SITUACIÓN
 
   Idea: el contador. Una variable que empieza en 0 y sube 1 cada vez que un elemento cumple
   la condición; al final contiene la respuesta.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - for con índice, arr[i] y .length.
+  - .push() y .includes() (aquí no hacen falta).
+NO PERMITIDO
+  - Modificar arr (las pruebas lo verifican).
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función contarMayores(arr, limite). Recibe un arreglo de números y un
@@ -142,7 +167,7 @@ EXPLICA
 
 }
 
-// EJERCICIO 03 — El mayor sin Math.max
+//! EJERCICIO 03 — El mayor sin Math.max
 /*
 SITUACIÓN
   Una tienda guarda los precios de sus productos en un arreglo y quiere saber cuál es el más
@@ -155,6 +180,15 @@ SITUACIÓN
   en el punto de partida: ese valor inicial debe ser un elemento real de la lista, no un
   número inventado (con [-5, -2, -9], empezar en 0 daría un resultado que ni siquiera está
   en el arreglo).
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - for desde el índice 1, arr[i], .length y las comparaciones > y <.
+NO PERMITIDO
+  - Math.max, Math.min y sort.
+  - Inicializar «mayor» en 0 (no es un método, pero el paso 3 lo descarta).
+  - Modificar arr.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función maximo(arr). Recibe un arreglo de números y devuelve un número.
@@ -201,7 +235,7 @@ COMPLEJIDAD
 }
 
 
-// EJERCICIO 04 — Invertir sin reverse
+//! EJERCICIO 04 — Invertir sin reverse
 /*
 SITUACIÓN
   Un maestro tiene la lista de asistencia en el orden en que llegaron los alumnos y quiere
@@ -213,6 +247,15 @@ SITUACIÓN
 
   Idea: recorrer un arreglo al revés. Se empieza en la última posición (arr.length - 1) y se
   baja de uno en uno hasta llegar a la 0, agregando cada elemento a un arreglo nuevo.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - for hacia atrás (i--), arr[i] y .length.
+  - Crear un arreglo nuevo con [] y usar .push() sobre ESE arreglo nuevo.
+NO PERMITIDO
+  - reverse, slice, concat y spread (...).
+  - Modificar arr (las pruebas lo verifican).
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función invertirArreglo(arr). Recibe un arreglo y devuelve un arreglo nuevo.
@@ -252,7 +295,7 @@ EXPLICA
 }
 
 
-// EJERCICIO 05 — Intercambiar dos posiciones
+//! EJERCICIO 05 — Intercambiar dos posiciones
 /*
 SITUACIÓN
   Para ordenar una lista, invertirla o mover elementos, la operación más básica es
@@ -265,6 +308,14 @@ SITUACIÓN
 
   Idea: la variable temporal. Si copias arr[j] sobre arr[i] sin guardar antes el valor de
   arr[i], ese valor se pierde y no puedes ponerlo en arr[j].
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - Number.isInteger(), las comparaciones y los operadores && y ||.
+  - Una variable temporal y asignaciones del tipo arr[i] = ... (aquí SÍ se modifica arr).
+NO PERMITIDO
+  - Devolver una copia: se devuelve el MISMO arreglo recibido.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función intercambiar(arr, i, j). Recibe un arreglo y dos posiciones, y
@@ -294,18 +345,19 @@ EXPLICA
 // TU SOLUCIÓN
 {
   function intercambiar(arr, i, j){
-
-    for(let a = 0; a < arr.length; a++){
-      let b;
-      if(a === i){
-        b = a
-      }
-      for(let c = a +1; c < arr.length; c++ ){
-        if(c === j){
-          arr[a] = c; arr[c] = b
-        }
-      }
+    const isValido = (k) => Number.isInteger(k) && k >= 0 && k < arr.length
+    if(!isValido(i) || 
+    i< 0 || 
+    i > arr.length || 
+    j > arr.length || j<0 ||!isValido(j)){
+      return arr
     }
+
+    let temporal;
+
+    temporal = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temporal
 
     return arr
   }
@@ -313,7 +365,7 @@ EXPLICA
 }
 
 
-// EJERCICIO 06 — Rotar a la izquierda
+//! EJERCICIO 06 — Rotar a la izquierda
 /*
 SITUACIÓN
   Un banco atiende en una fila circular: cuando la fila avanza k lugares, las k primeras
@@ -327,6 +379,15 @@ SITUACIÓN
   lugares adelante en el original (la posición 2, que vale 3). La posición 3 tomaría la 5,
   pero esa no existe: al llegar al final hay que volver al inicio y tomar la 0 (que vale 1).
   Esa «vuelta al llegar al final» es lo que resuelve el operador %.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - for, el operador %, arr[i] y .length.
+  - Crear un arreglo nuevo con [] y usar .push() sobre ESE arreglo nuevo.
+NO PERMITIDO
+  - slice, splice, concat, spread (...), shift y unshift.
+  - Modificar arr (las pruebas lo verifican).
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función rotarIzquierda(arr, k). Recibe un arreglo y un entero k >= 0, y
@@ -378,7 +439,7 @@ COMPLEJIDAD
 // BLOQUE B — STRINGS Y RECORRIDOS
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 07 — Contar vocales
+//! EJERCICIO 07 — Contar vocales
 /*
 SITUACIÓN
   Un corrector ortográfico quiere saber cuántas vocales tiene una palabra o frase para sus
@@ -389,6 +450,16 @@ SITUACIÓN
 
   Idea: recorrer un texto carácter por carácter y contar solo los que cumplen una condición.
   Pasar antes el texto a minúsculas permite comparar con 5 letras en lugar de 10.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - texto.toLowerCase(), una sola vez.
+  - for...of para recorrer el texto.
+  - .includes() para buscar VALORES: "aeiou".includes(c) es válido (también ["a", "e", "i", "o", "u"].includes(c)).
+  - Ojo: el operador in NO sirve aquí: busca CLAVES (posiciones), no valores.
+NO PERMITIDO
+  - Expresiones regulares (match, test).
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función contarVocales(texto). Recibe un texto y devuelve un número.
@@ -413,24 +484,22 @@ EXPLICA
 // TU SOLUCIÓN
 {
   function contarVocales(texto){
-    let contador;
-    texto = texto.toLowerCase()
-    vowels = new Set(['a', 'o', 'i', 'e', 'u'])
+   let contador = 0;
+   const minusculas = texto.toLowerCase();
+   const vowels = 'aeiou'
 
-    for(let i = 0; i < texto.length; i++){
-      if( vowels.has(texto)){
-        contador += 1
-      }
-
+    for(const c of minusculas){
+      if(vowels.includes(c)) contador ++
     }
-    
     return contador
   }
-
+{/*Comentario: mi solución no fue suficiente, repasé de nuevo el tema de for-of, además no sabía que podía considerar
+  'vowels' como array, lo estaba considerando como set.
+  */}
 }
 
 
-// EJERCICIO 08 — Capitalizar cada palabra
+//! EJERCICIO 08 — Capitalizar cada palabra
 /*
 SITUACIÓN
   Un formulario recibe nombres escritos de cualquier manera (por ejemplo, 'jAVAsCRIPT' o
@@ -443,6 +512,17 @@ SITUACIÓN
   Idea: trabajar palabra por palabra. Se separa el texto en un arreglo de palabras, se
   transforma cada una y se vuelve a unir. Cuidado con el texto vacío: al separarlo queda una
   palabra vacía, y esa no tiene una primera letra que poner en mayúscula.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - frase.split(' ') y resultado.join(' ').
+  - for...of, continue, [] y .push().
+  - palabra[0], palabra.length y palabra.slice(1).
+  - toUpperCase() y toLowerCase().
+NO PERMITIDO
+  - Expresiones regulares y replace.
+  - map y forEach para transformar las palabras (el ejercicio pide for...of).
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función capitalizar(frase). Recibe un texto y devuelve un texto.
@@ -468,9 +548,24 @@ EXPLICA
   ¿Qué error ocurre si aplicas toUpperCase() sobre ''[0]? ¿Cómo lo evitaste?
 */
 // TU SOLUCIÓN
+{
+  function capitalizar(frase){
+    normalize = frase.toLowerCase();
+    let stock = []
+
+    for(const c of normalize){
+      
+    }
 
 
-// EJERCICIO 09 — Palíndromo con dos extremos
+    return stock
+  }
+
+  {}
+}
+
+
+//! EJERCICIO 09 — Palíndromo con dos extremos
 /*
 SITUACIÓN
   Un palíndromo es un texto que se lee igual de izquierda a derecha que de derecha a
@@ -484,6 +579,17 @@ SITUACIÓN
   Idea: dos índices, uno en cada extremo, que se acercan al centro. Cuando uno de los dos
   apunta a un carácter que no cuenta, ese índice se salta y se vuelve a comparar. No se
   construye ningún texto nuevo.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - while, continue, texto[i] y .length.
+  - toLowerCase() sobre un carácter.
+  - Comparar caracteres con >= y <=, y la función auxiliar esAlfanumerico.
+NO PERMITIDO
+  - reverse.
+  - Expresiones regulares (match, test, replace con patrón).
+  - Crear un texto limpio nuevo (sin signos ni espacios) para compararlo con su inverso.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función auxiliar esAlfanumerico(c). Recibe un carácter y devuelve true si es
@@ -516,7 +622,7 @@ COMPLEJIDAD
 // TU SOLUCIÓN
 
 
-// EJERCICIO 10 — Comprimir repeticiones
+//! EJERCICIO 10 — Comprimir repeticiones
 /*
 SITUACIÓN
   Para ahorrar espacio, un sistema guarda un texto con letras repetidas indicando cada letra
@@ -529,6 +635,14 @@ SITUACIÓN
   Idea: llevar el grupo en curso (la letra actual y cuántas van) y cerrarlo cuando la letra
   cambia. El último grupo nunca ve un cambio, así que hay que cerrarlo aparte, al terminar
   el recorrido.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - for desde el índice 1, texto[i] y .length.
+  - Concatenar texto con +.
+NO PERMITIDO
+  - Expresiones regulares.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función comprimir(texto). Recibe un texto y devuelve un texto.
@@ -558,7 +672,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 11 — Longitud de la última palabra
+//! EJERCICIO 11 — Longitud de la última palabra
 /*
 SITUACIÓN
   Un editor de texto quiere mostrar la longitud de la última palabra de lo que escribió el
@@ -570,6 +684,13 @@ SITUACIÓN
   Idea: recorrer el texto de derecha a izquierda en dos fases. Primero se saltan los
   espacios del final; luego se cuentan las letras hasta toparse con un espacio o con el
   inicio del texto. Por eso se evitan split y trim: se practica controlar los índices.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - while, texto[i] y .length.
+NO PERMITIDO
+  - trim, split y lastIndexOf.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función longitudUltimaPalabra(texto). Recibe un texto y devuelve un número.
@@ -597,7 +718,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 12 — Subsecuencia
+//! EJERCICIO 12 — Subsecuencia
 /*
 SITUACIÓN
   Un buscador sugiere una palabra cuando las letras que escribiste aparecen en ella en el
@@ -611,6 +732,13 @@ SITUACIÓN
   Idea: recorrer «larga» una sola vez con un índice auxiliar que recuerda cuál letra de
   «corta» se busca ahora; ese índice avanza cada vez que se encuentra la letra buscada. Si
   al final se encontraron todas, es subsecuencia.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - for, texto[i], .length y la comparación === entre caracteres.
+NO PERMITIDO
+  - Nada más aparte de la lista general.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función esSubsecuencia(corta, larga). Recibe dos textos y devuelve un booleano.
@@ -643,7 +771,7 @@ COMPLEJIDAD
 // BLOQUE C — CONDICIONALES Y REGLAS MÚLTIPLES
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 13 — Clasificar un triángulo
+//! EJERCICIO 13 — Clasificar un triángulo
 /*
 SITUACIÓN
   Un programa de geometría recibe tres longitudes y debe decir qué tipo de triángulo forman:
@@ -658,6 +786,13 @@ SITUACIÓN
   Idea: el orden de las condiciones. Lo inválido se descarta primero, porque 2, 2 y 4 tiene
   dos lados iguales pero no es un triángulo; si preguntaras por 'isosceles' antes,
   responderías mal.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - if, las comparaciones (<=, ===) y los operadores && y ||.
+NO PERMITIDO
+  - sort.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función clasificarTriangulo(a, b, c). Recibe tres números y devuelve un texto.
@@ -688,7 +823,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 14 — Días de un mes
+//! EJERCICIO 14 — Días de un mes
 /*
 SITUACIÓN
   Una aplicación de calendario necesita saber cuántos días tiene un mes de un año concreto.
@@ -702,6 +837,14 @@ SITUACIÓN
 
   Idea: combinar condiciones con && y || para decidir el año bisiesto, y usar un switch para
   agrupar los meses que comparten el mismo resultado.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - switch con casos agrupados, Number.isInteger(), el operador % y los operadores && y ||.
+  - La función auxiliar esBisiesto.
+NO PERMITIDO
+  - Nada más aparte de la lista general.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función auxiliar esBisiesto(anio). Devuelve true si el año es divisible entre 4
@@ -734,7 +877,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 15 — Precio de un boleto
+//! EJERCICIO 15 — Precio de un boleto
 /*
 SITUACIÓN
   Un cine calcula el precio de cada boleto con estas ideas: los menores de 5 años entran
@@ -748,6 +891,14 @@ SITUACIÓN
 
   Idea: el orden de las reglas y los valores borde. Las condiciones cambian justo en 4 y 5,
   en 12 y 13, y en 64 y 65; ahí es donde se equivocan casi todas las soluciones.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - if/else, las comparaciones, && y ||, y la aritmética (-, *, /).
+  - Comparar texto con ===.
+NO PERMITIDO
+  - Nada más aparte de la lista general.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función precioBoleto(edad, esEstudiante, dia). Recibe un número, un booleano
@@ -787,7 +938,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 16 — Fortaleza de una clave
+//! EJERCICIO 16 — Fortaleza de una clave
 /*
 SITUACIÓN
   Un formulario de registro evalúa la contraseña que escribe el usuario con cuatro
@@ -801,6 +952,13 @@ SITUACIÓN
   Idea: recorrer la contraseña una sola vez, activando una bandera (true/false) por cada
   tipo de carácter que aparece. Al terminar, se cuentan cuántos criterios se cumplen y con
   eso se decide la clasificación.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - for...of, comparar caracteres (c >= 'A' && c <= 'Z'), banderas booleanas y .length.
+NO PERMITIDO
+  - Expresiones regulares (test, match).
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función clasificarClave(clave). Recibe un texto y devuelve un texto.
@@ -839,7 +997,7 @@ EXPLICA
 // BLOQUE D — INTEGRACIÓN ESTILO LEETCODE
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 17 — Cambio con el menor número de monedas
+//! EJERCICIO 17 — Cambio con el menor número de monedas
 /*
 SITUACIÓN
   Una caja registradora debe devolver el cambio con el menor número de monedas posible. Hay
@@ -852,6 +1010,13 @@ SITUACIÓN
 
   Idea: un algoritmo voraz. Se va de la moneda más grande a la más chica, usando cada una
   tantas veces como quepa en lo que todavía falta por devolver.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - for...of sobre «monedas», while, [] y .push(), Number.isInteger().
+NO PERMITIDO
+  - Nada más aparte de la lista general.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función cambioMinimo(monto). Recibe un número y devuelve un arreglo de números.
@@ -880,7 +1045,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 18 — El segundo mayor
+//! EJERCICIO 18 — El segundo mayor
 /*
 SITUACIÓN
   Un ranking guarda las puntuaciones de una competencia, con repeticiones posibles, y
@@ -894,6 +1059,13 @@ SITUACIÓN
   Idea: recorrer el arreglo UNA vez llevando dos acumuladores a la vez: el mayor visto y el
   segundo mayor visto. Cuando aparece un valor nuevo se actualizan juntos, porque el mayor
   anterior pasa a ser el segundo.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - for...of, undefined y las comparaciones.
+NO PERMITIDO
+  - sort, Math.max y Set.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función segundoMayor(arr). Recibe un arreglo de números y devuelve un número
@@ -928,7 +1100,7 @@ COMPLEJIDAD
 // TU SOLUCIÓN
 
 
-// EJERCICIO 19 — Sumar uno a un número en dígitos
+//! EJERCICIO 19 — Sumar uno a un número en dígitos
 /*
 SITUACIÓN
   Un número demasiado grande para JavaScript se guarda como un arreglo de dígitos, del más
@@ -941,6 +1113,16 @@ SITUACIÓN
 
   Idea: recorrer los dígitos de derecha a izquierda propagando ese acarreo, hasta encontrar
   un dígito menor que 9 al que sumarle 1.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - Spread: [...digitos] y [1, ...copia] (en este ejercicio SÍ se permite).
+  - for hacia atrás, arr[i] y .length.
+NO PERMITIDO
+  - Convertir a número: Number, parseInt, BigInt.
+  - Convertir a texto: String, toString, join, plantillas con ${}.
+  - Modificar el arreglo original (las pruebas lo verifican).
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función sumarUno(digitos). Recibe un arreglo de dígitos (0–9) y devuelve un
@@ -974,7 +1156,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 20 — Arreglo en forma de montaña
+//! EJERCICIO 20 — Arreglo en forma de montaña
 /*
 SITUACIÓN
   Un ingeniero revisa el perfil de altura de un sendero, registrado como un arreglo, y
@@ -988,6 +1170,13 @@ SITUACIÓN
   Idea: «caminar» por el arreglo con un solo índice: primero subir mientras haya subida,
   comprobar que estás en una cima válida (ni al inicio ni al final), bajar mientras haya
   bajada y verificar que llegaste al último elemento.
+
+PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
+  - while, arr[i], arr[i + 1], .length y las comparaciones.
+NO PERMITIDO
+  - Nada más aparte de la lista general.
+  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
+    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
 
 QUÉ DEBES HACER
   1. Declara la función esMontana(arr). Recibe un arreglo de números y devuelve un booleano.
