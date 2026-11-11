@@ -10,9 +10,10 @@ ORGANIZACIÓN
   Ejercicios 17–20 .... integración estilo LeetCode (acumuladores, bordes, dos índices)
 
 CÓMO TRABAJAR CADA EJERCICIO
-  1. Lee SITUACIÓN: te dice qué problema resuelves. Luego lee PERMITIDO y NO PERMITIDO:
-     te dicen con qué herramientas puedes resolverlo y cuáles debes evitar.
-  2. Sigue QUÉ DEBES HACER en orden, paso por paso. Cada paso es una acción concreta.
+  1. Lee SITUACIÓN y RESTRICCIONES: te dicen qué problema resuelves, qué datos esperar y con
+     qué herramientas puedes (y no puedes) resolverlo.
+  2. QUÉ DEBES HACER dice QUÉ debe cumplir la función (firma, qué devuelve en cada caso,
+     bordes), no cómo: tú decides el algoritmo, respetando RESTRICCIONES.
   3. Escribe tu función debajo de «// TU SOLUCIÓN», con el nombre exacto que pide el enunciado.
   4. Antes de ejecutar, predice a mano el resultado de cada línea de COMPRUEBA
      (haz una tabla de seguimiento: variable por variable, vuelta por vuelta).
@@ -25,26 +26,28 @@ CÓMO TRABAJAR CADA EJERCICIO
   6. Si falla, NO cambies código al azar: haz la tabla de seguimiento con el caso que falló.
   7. Responde EXPLICA (y COMPLEJIDAD, cuando aparezca) en un comentario bajo tu solución.
 
+RESTRICCIONES (en cada ejercicio)
+  Datos .... qué entradas puedes esperar (rangos, vacío, negativos, repetidos...).
+  Usa ..... la estructura de datos y el bucle o método que debes emplear.
+  No uses .. lo que está prohibido en ESE ejercicio.
+
 VOCABULARIO DE LOS ENUNCIADOS
   «Devuelve» = usa return. Imprimir con console.log NO sustituye a devolver.
   «Arreglo» = array. «Índice válido» = entero entre 0 y length - 1.
   «Recorre» = usa un for (o while) que visite los elementos en el orden que se indica.
   «Supón» = el dato ya es válido; no lo compruebes.
   «Arreglo nuevo» = crea otro con [] y llénalo; no devuelvas el recibido.
+  «En el sitio» = modifica el arreglo recibido en lugar de crear uno nuevo.
 
 REGLAS
   - No modifiques los argumentos recibidos, salvo que el ejercicio lo pida (las pruebas lo verifican).
-  - Cada ejercicio trae dos listas, y esa lista manda sobre esta cabecera:
-      PERMITIDO ...... las herramientas que el ejercicio espera que uses.
-      NO PERMITIDO ... lo que NO debes usar en ese ejercicio.
-    Lo que no aparece en NO PERMITIDO sí se puede usar. Si dudas de un método, busca su
-    nombre en la lista del ejercicio, no aquí.
-  - Prohibido en todos los ejercicios, salvo que uno lo permita expresamente: map, filter,
-    reduce, forEach, find, some, every, sort, reverse, Math.max, Math.min, expresiones
-    regulares, Set y Map. El objetivo es dominar bucles, índices y condiciones. Cada
-    ejercicio vuelve a nombrarlos en su NO PERMITIDO.
-  - Permitido en todos (salvo que el ejercicio diga lo contrario): variables, if/else,
-    switch, for, while, for...of, .length, .push() e .includes().
+  - Prohibido en todo el archivo, salvo que el ejercicio lo permita: map, filter, reduce,
+    forEach, find, some, every, sort, reverse, Math.max, Math.min, expresiones regulares,
+    Set y Map. El objetivo es dominar bucles, índices y condiciones.
+  - Cada ejercicio concreta en «No uses» lo prohibido en él (puede añadir más cosas a esta
+    lista, como slice, split o Math.floor) y en «Usa» lo que debes emplear.
+  - Siempre permitido, salvo que «No uses» lo prohíba: variables, if/else, switch, for,
+    while, for...of, .length, .push(), .includes() y los métodos de string que se indiquen.
   - No hay soluciones incluidas. Las pruebas automáticas están al final: no las edites.
 */
 
@@ -65,24 +68,21 @@ SITUACIÓN
   Idea: acceso por índice. La primera lectura está en la posición 0 y la última en la
   posición arr.length - 1; no hace falta recorrer nada.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - Indexar: arr[0] y arr[arr.length - 1]; usar .length.
-  - Crear un arreglo nuevo con [] y usar .push() sobre ESE arreglo nuevo (o escribir [a, b] directo).
-  - .includes() (aquí no hace falta).
-NO PERMITIDO
-  - .at().
-  - Modificar arr con push, pop, shift, unshift o splice.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un arreglo de números; puede estar vacío o tener un solo elemento.
+  Usa:
+  - El arreglo recibido, leído por índice y con .length. El resultado es un arreglo nuevo.
+  No uses:
+  - .at(), slice, pop, shift ni ningún método que modifique arr.
 
 QUÉ DEBES HACER
   1. Declara la función extremos(arr). Recibe un arreglo de números y devuelve un arreglo.
-  2. Si arr está vacío (arr.length === 0), devuelve [] y termina.
-  3. Crea un arreglo nuevo con dos elementos, en este orden: el primero de arr (índice 0)
-     y el último de arr (índice arr.length - 1).
-  4. Devuelve ese arreglo nuevo. Con un solo elemento, el primero y el último son el mismo.
-  5. No modifiques arr (no uses push, pop ni shift sobre él) y no uses .at().
-  6. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Devuelve un arreglo nuevo de dos elementos: [primer elemento de arr, último elemento de arr].
+     Con un solo elemento, el primero y el último son el mismo.
+  3. Con un arreglo vacío devuelve [].
+  4. arr queda intacto.
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(extremos([4, 8, 15]));   // [4, 15]
@@ -122,24 +122,22 @@ SITUACIÓN
   Idea: el contador. Una variable que empieza en 0 y sube 1 cada vez que un elemento cumple
   la condición; al final contiene la respuesta.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - for con índice, arr[i] y .length.
-  - .push() y .includes() (aquí no hacen falta).
-NO PERMITIDO
-  - Modificar arr (las pruebas lo verifican).
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un arreglo de números (puede estar vacío y tener negativos) y un número límite.
+  Usa:
+  - El arreglo recibido, recorrido con un for con índice, y una variable numérica para llevar
+    la cuenta.
+  No uses:
+  - filter, reduce, forEach; no crees arreglos auxiliares ni modifiques arr.
 
 QUÉ DEBES HACER
   1. Declara la función contarMayores(arr, limite). Recibe un arreglo de números y un
-     número límite, y devuelve un número.
-  2. Crea la variable «contador» con valor 0, ANTES del bucle.
-  3. Recorre arr con un for: i empieza en 0, continúa mientras i < arr.length y avanza de 1 en 1.
-  4. En cada vuelta, si arr[i] es ESTRICTAMENTE mayor que limite, suma 1 a «contador».
-     Un elemento igual al límite NO cuenta.
-  5. Al terminar el bucle, devuelve «contador». Con un arreglo vacío, el bucle no da
-     ninguna vuelta y el resultado es 0.
-  6. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+     número, y devuelve un número.
+  2. Devuelve cuántos elementos de arr son ESTRICTAMENTE mayores que limite. Un elemento
+     igual al límite no cuenta.
+  3. Con un arreglo vacío devuelve 0. arr queda intacto.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(contarMayores([1, 5, 10, 15], 5));   // 2
@@ -181,26 +179,22 @@ SITUACIÓN
   número inventado (con [-5, -2, -9], empezar en 0 daría un resultado que ni siquiera está
   en el arreglo).
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - for desde el índice 1, arr[i], .length y las comparaciones > y <.
-NO PERMITIDO
-  - Math.max, Math.min y sort.
-  - Inicializar «mayor» en 0 (no es un método, pero el paso 3 lo descarta).
-  - Modificar arr.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un arreglo de números; puede estar vacío, tener negativos y valores repetidos.
+  Usa:
+  - El arreglo recibido, recorrido con un for con índice, y variables sueltas (sin arreglos
+    auxiliares).
+  No uses:
+  - Math.max, Math.min, sort, reduce; no crees arreglos auxiliares ni modifiques arr.
 
 QUÉ DEBES HACER
   1. Declara la función maximo(arr). Recibe un arreglo de números y devuelve un número.
-  2. Si arr está vacío, devuelve undefined y termina (no existe un «mayor» de nada).
-  3. Crea la variable «mayor» y asígnale el PRIMER elemento de arr (arr[0]). No la
-     inicialices en 0.
-  4. Recorre arr con un for desde el índice 1 (el 0 ya está en «mayor»): i empieza en 1,
-     continúa mientras i < arr.length y avanza de 1 en 1.
-  5. En cada vuelta, si arr[i] es mayor que «mayor», guarda arr[i] en «mayor».
-  6. Al terminar el bucle, devuelve «mayor».
-  7. Prohibido: Math.max y sort.
-  8. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Devuelve el mayor valor de arr. Siempre es uno de sus elementos: con todos negativos
+     devuelve el mayor de ellos (en [-5, -2, -9], el -2).
+  3. Con un arreglo vacío devuelve undefined (no existe un «mayor» de nada).
+  4. arr queda intacto.
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(maximo([3, 9, 2]));        // 9
@@ -248,24 +242,22 @@ SITUACIÓN
   Idea: recorrer un arreglo al revés. Se empieza en la última posición (arr.length - 1) y se
   baja de uno en uno hasta llegar a la 0, agregando cada elemento a un arreglo nuevo.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - for hacia atrás (i--), arr[i] y .length.
-  - Crear un arreglo nuevo con [] y usar .push() sobre ESE arreglo nuevo.
-NO PERMITIDO
-  - reverse, slice, concat y spread (...).
-  - Modificar arr (las pruebas lo verifican).
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un arreglo con elementos de cualquier tipo; puede estar vacío o tener un solo elemento.
+  Usa:
+  - El arreglo recibido, recorrido con un for con índice, y un arreglo nuevo para el
+    resultado, al que agregas con .push().
+  No uses:
+  - reverse, slice, concat, spread (...), sort; no modifiques arr.
 
 QUÉ DEBES HACER
   1. Declara la función invertirArreglo(arr). Recibe un arreglo y devuelve un arreglo nuevo.
-  2. Crea un arreglo vacío llamado «resultado» ([]).
-  3. Recorre arr DE DERECHA A IZQUIERDA con un for: i empieza en arr.length - 1, continúa
-     mientras i >= 0 y retrocede de 1 en 1 (i--).
-  4. En cada vuelta, agrega arr[i] al final de «resultado» con push.
-  5. Al terminar el bucle, devuelve «resultado». arr debe quedar exactamente igual.
-  6. Prohibido: reverse, slice, concat y spread (...).
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. El resultado contiene los mismos elementos de arr en orden contrario: su primer
+     elemento es el último de arr, y su último elemento es el primero de arr.
+  3. Con un arreglo vacío devuelve [].
+  4. arr queda exactamente igual, y el resultado es otro arreglo (no el mismo objeto).
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   const original = [1, 2, 3];
@@ -309,23 +301,26 @@ SITUACIÓN
   Idea: la variable temporal. Si copias arr[j] sobre arr[i] sin guardar antes el valor de
   arr[i], ese valor se pierde y no puedes ponerlo en arr[j].
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - Number.isInteger(), las comparaciones y los operadores && y ||.
-  - Una variable temporal y asignaciones del tipo arr[i] = ... (aquí SÍ se modifica arr).
-NO PERMITIDO
-  - Devolver una copia: se devuelve el MISMO arreglo recibido.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un arreglo con elementos de cualquier tipo y dos posiciones i y j. Las posiciones pueden
+    ser negativas, mayores o iguales que arr.length, o iguales entre sí.
+  Usa:
+  - El propio arreglo recibido, leído y asignado por índice, solo con variables sueltas
+    (sin arreglos auxiliares), y Number.isInteger para validar las posiciones.
+  No uses:
+  - splice, slice, reverse, copiar el arreglo ni la asignación por desestructuración
+    ([arr[i], arr[j]] = [arr[j], arr[i]]).
 
 QUÉ DEBES HACER
   1. Declara la función intercambiar(arr, i, j). Recibe un arreglo y dos posiciones, y
      devuelve el MISMO arreglo recibido (no una copia).
-  2. Un índice es válido si es un entero y cumple 0 <= índice < arr.length
-     (Number.isInteger(índice) te ayuda). Si i o j NO es válido, devuelve arr sin cambios.
-  3. Guarda arr[i] en una variable temporal, por ejemplo «temp».
-  4. Copia arr[j] en la posición i:  arr[i] = arr[j].
-  5. Copia «temp» en la posición j:  arr[j] = temp.
-  6. Devuelve arr. Si i y j son iguales, el arreglo queda igual: no necesita caso especial.
+  2. Una posición es válida si es un entero y cumple 0 <= posición < arr.length.
+  3. Si i y j son válidas, al terminar la posición i contiene lo que había en j y la
+     posición j contiene lo que había en i.
+  4. Si i o j NO es válida, arr queda sin cambios.
+  5. Si i y j son iguales, arr queda igual.
+  6. La función modifica arr en el sitio y devuelve ese mismo arreglo.
   7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
@@ -380,30 +375,27 @@ SITUACIÓN
   pero esa no existe: al llegar al final hay que volver al inicio y tomar la 0 (que vale 1).
   Esa «vuelta al llegar al final» es lo que resuelve el operador %.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - for, el operador %, arr[i] y .length.
-  - Crear un arreglo nuevo con [] y usar .push() sobre ESE arreglo nuevo.
-NO PERMITIDO
-  - slice, splice, concat, spread (...), shift y unshift.
-  - Modificar arr (las pruebas lo verifican).
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un arreglo de cualquier tipo de elementos (puede estar vacío) y un entero k >= 0, que
+    puede ser mayor o igual que arr.length.
+  Usa:
+  - El arreglo recibido, recorrido con un for con índice, un arreglo nuevo para el
+    resultado (con .push()) y el operador %.
+  No uses:
+  - slice, splice, concat, spread (...), shift, unshift, reverse; no modifiques arr.
 
 QUÉ DEBES HACER
   1. Declara la función rotarIzquierda(arr, k). Recibe un arreglo y un entero k >= 0, y
      devuelve un arreglo nuevo.
-  2. Si arr está vacío, devuelve [] y termina (así evitas dividir entre 0 en el paso 5).
-  3. Crea un arreglo vacío llamado «resultado» ([]).
-  4. Recorre TODAS las posiciones de arr (la primera es la 0 y la última es arr.length - 1)
-     con un for: i empieza en 0, continúa mientras i < arr.length y avanza de 1 en 1.
-     Escribe la condición exactamente como i < arr.length, SIN restar 1: si escribes
-     i < arr.length - 1 te saltas la última posición.
-  5. En cada vuelta, el elemento que va en la posición i del resultado es el que estaba en
-     la posición (i + k) % arr.length de arr. Agrégalo a «resultado» con push.
-     El operador % hace que, al pasarte del final, vuelvas al inicio.
-  6. Al terminar el bucle, devuelve «resultado». arr debe quedar intacto.
-  7. Prohibido: slice, splice, concat, spread, shift y unshift.
-  8. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Devuelve los elementos de arr desplazados k lugares a la izquierda: los k primeros
+     pasan al final, conservando su orden, y los demás quedan antes, también en su orden.
+  3. Si k es mayor o igual que arr.length, la fila sigue girando: con 5 elementos, k = 7
+     da el mismo resultado que k = 2.
+  4. Con k = 0 devuelve un arreglo nuevo con los mismos elementos y en el mismo orden.
+  5. Con un arreglo vacío devuelve [].
+  6. arr queda intacto.
+  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(rotarIzquierda([1, 2, 3, 4, 5], 2));   // [3, 4, 5, 1, 2]
@@ -451,26 +443,23 @@ SITUACIÓN
   Idea: recorrer un texto carácter por carácter y contar solo los que cumplen una condición.
   Pasar antes el texto a minúsculas permite comparar con 5 letras en lugar de 10.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - texto.toLowerCase(), una sola vez.
-  - for...of para recorrer el texto.
-  - .includes() para buscar VALORES: "aeiou".includes(c) es válido (también ["a", "e", "i", "o", "u"].includes(c)).
-  - Ojo: el operador in NO sirve aquí: busca CLAVES (posiciones), no valores.
-NO PERMITIDO
-  - Expresiones regulares (match, test).
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un texto que puede estar vacío y contener mayúsculas, minúsculas, espacios, signos y
+    letras con acento.
+  Usa:
+  - El texto recibido, recorrido con un bucle for o for...of, el método de string
+    toLowerCase(), .includes() sobre un texto fijo de vocales y una variable numérica.
+  No uses:
+  - Set, Map, expresiones regulares, split, match, filter, reduce ni arreglos auxiliares.
 
 QUÉ DEBES HACER
   1. Declara la función contarVocales(texto). Recibe un texto y devuelve un número.
-  2. Crea la variable «contador» con valor 0.
-  3. Convierte el texto a minúsculas UNA sola vez y guarda el resultado en «minusculas»
-     (texto.toLowerCase()).
-  4. Recorre «minusculas» con for...of: en cada vuelta tendrás un carácter «c».
-  5. Si c es una vocal (a, e, i, o, u), suma 1 a «contador». Puedes comprobarlo con
-     "aeiou".includes(c). Las vocales con acento (á, é...) NO se cuentan.
-  6. Al terminar el bucle, devuelve «contador».
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Devuelve cuántos caracteres de texto son vocales: a, e, i, o, u, en mayúscula o en
+     minúscula (la «A» cuenta igual que la «a»).
+  3. Las vocales con acento (á, é, í, ó, ú) NO se cuentan.
+  4. Con un texto vacío, o sin vocales, devuelve 0.
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(contarVocales('Hola Mundo'));    // 4    (o, a, u, o)
@@ -513,30 +502,24 @@ SITUACIÓN
   transforma cada una y se vuelve a unir. Cuidado con el texto vacío: al separarlo queda una
   palabra vacía, y esa no tiene una primera letra que poner en mayúscula.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - frase.split(' ') y resultado.join(' ').
-  - for...of, continue, [] y .push().
-  - palabra[0], palabra.length y palabra.slice(1).
-  - toUpperCase() y toLowerCase().
-NO PERMITIDO
-  - Expresiones regulares y replace.
-  - map y forEach para transformar las palabras (el ejercicio pide for...of).
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un texto de letras sin acento, con las palabras separadas por UN solo espacio y sin
+    espacios al inicio ni al final; las letras pueden venir en mayúscula y minúscula
+    mezcladas. Puede ser el texto vacío.
+  Usa:
+  - Un arreglo de palabras obtenido con split(' '), un bucle for...of o for con índice, los
+    métodos de string toUpperCase(), toLowerCase() y slice(), .push() sobre un arreglo
+    nuevo y join(' ') para unir.
+  No uses:
+  - Expresiones regulares, replace, map, forEach ni reduce.
 
 QUÉ DEBES HACER
   1. Declara la función capitalizar(frase). Recibe un texto y devuelve un texto.
-     Las palabras están separadas por UN solo espacio.
-  2. Separa la frase en palabras: frase.split(' ') te da un arreglo. Guárdalo en «palabras».
-  3. Crea un arreglo vacío «resultado» para guardar las palabras ya transformadas.
-  4. Recorre «palabras» con for...of: en cada vuelta tendrás una «palabra».
-  5. Si la palabra está vacía (palabra.length === 0), agrégala tal cual a «resultado» y
-     pasa a la siguiente (continue). Esto evita fallar con ''[0].
-  6. Si no está vacía, arma la palabra nueva: palabra[0].toUpperCase() +
-     palabra.slice(1).toLowerCase(). Agrégala a «resultado» con push.
-  7. Al terminar el bucle, devuelve resultado.join(' ').
-  8. Prohibido: expresiones regulares y replace.
-  9. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Devuelve la frase con la primera letra de cada palabra en mayúscula y todas las demás
+     letras en minúscula. Los espacios quedan como estaban.
+  3. Con el texto vacío devuelve '' (sin error).
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(capitalizar('hola mundo'));   // 'Hola Mundo'
@@ -580,31 +563,27 @@ SITUACIÓN
   apunta a un carácter que no cuenta, ese índice se salta y se vuelve a comparar. No se
   construye ningún texto nuevo.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - while, continue, texto[i] y .length.
-  - toLowerCase() sobre un carácter.
-  - Comparar caracteres con >= y <=, y la función auxiliar esAlfanumerico.
-NO PERMITIDO
-  - reverse.
-  - Expresiones regulares (match, test, replace con patrón).
-  - Crear un texto limpio nuevo (sin signos ni espacios) para compararlo con su inverso.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un texto con letras sin acento, dígitos, espacios y signos de puntuación; puede estar
+    vacío o no tener ninguna letra ni dígito.
+  Usa:
+  - El texto recibido leído por índice (texto[i]), un bucle while, toLowerCase() sobre
+    caracteres sueltos, comparaciones entre caracteres y variables numéricas.
+  No uses:
+  - reverse, split, join, replace, expresiones regulares, .at(), arreglos auxiliares ni
+    crear una versión limpia o copia del texto.
 
 QUÉ DEBES HACER
   1. Declara la función auxiliar esAlfanumerico(c). Recibe un carácter y devuelve true si es
-     letra minúscula (c >= 'a' && c <= 'z'), mayúscula (c >= 'A' && c <= 'Z') o dígito
-     (c >= '0' && c <= '9'). En otro caso devuelve false.
+     una letra de la a a la z (minúscula o mayúscula) o un dígito del 0 al 9; en otro
+     caso, false.
   2. Declara la función esPalindromo(texto). Recibe un texto y devuelve un booleano.
-  3. Crea dos índices: «izquierda» con valor 0 y «derecha» con valor texto.length - 1.
-  4. Repite con un while mientras izquierda < derecha. En cada vuelta, en este orden:
-     a) si texto[izquierda] NO es alfanumérico: suma 1 a izquierda y continúa (continue);
-     b) si texto[derecha] NO es alfanumérico: resta 1 a derecha y continúa (continue);
-     c) si los dos, pasados a minúscula, son distintos: devuelve false;
-     d) si son iguales: suma 1 a izquierda y resta 1 a derecha.
-  5. Si el while termina sin haber devuelto false, devuelve true.
-  6. Prohibido: reverse, expresiones regulares y crear un texto limpio nuevo.
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  3. Devuelve true si, ignorando las mayúsculas y todo carácter que no sea alfanumérico,
+     las letras y dígitos restantes se leen igual de izquierda a derecha que de derecha a
+     izquierda; en caso contrario, false.
+  4. Con un texto vacío, o sin ningún carácter alfanumérico, devuelve true.
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(esPalindromo('A man, a plan, a canal: Panama'));  // true
@@ -636,28 +615,23 @@ SITUACIÓN
   cambia. El último grupo nunca ve un cambio, así que hay que cerrarlo aparte, al terminar
   el recorrido.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - for desde el índice 1, texto[i] y .length.
-  - Concatenar texto con +.
-NO PERMITIDO
-  - Expresiones regulares.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un texto de letras (sin dígitos); puede estar vacío o ser de una sola letra.
+  Usa:
+  - El texto recibido, recorrido con un for con índice en un solo recorrido, y un texto
+    para el resultado que se va ampliando con +.
+  No uses:
+  - Expresiones regulares, split, join, repeat, Map, Set, ni arreglos auxiliares.
 
 QUÉ DEBES HACER
   1. Declara la función comprimir(texto). Recibe un texto y devuelve un texto.
-  2. Si el texto está vacío, devuelve '' y termina.
-  3. Crea tres variables: «resultado» con valor '' (texto que irás armando), «actual» con
-     valor texto[0] (la letra del grupo en curso) y «cuenta» con valor 1 (cuántas lleva).
-  4. Recorre el texto con un for desde el índice 1: i empieza en 1, continúa mientras
-     i < texto.length y avanza de 1 en 1.
-  5. En cada vuelta:
-     a) si texto[i] es igual a «actual», suma 1 a «cuenta»;
-     b) si es distinto: agrega actual + cuenta a «resultado», y luego haz actual = texto[i]
-        y cuenta = 1.
-  6. Al terminar el bucle queda UN GRUPO SIN AGREGAR: agrega actual + cuenta a «resultado».
-  7. Devuelve «resultado».
-  8. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Cada grupo de letras iguales CONSECUTIVAS se reemplaza por la letra seguida de cuántas
+     veces se repite, sin separadores: 'aaabcc' da 'a3b1c2'. Un grupo de una sola letra
+     lleva 1 ('abc' da 'a1b1c1'). Un grupo de 12 letras lleva el número completo: 'a12'.
+  3. La misma letra en grupos separados da grupos separados: 'aabaa' da 'a2b1a2', no 'a4b1'.
+  4. Con el texto vacío devuelve ''.
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(comprimir('aaabccdd'));   // 'a3b1c2d2'
@@ -685,25 +659,22 @@ SITUACIÓN
   espacios del final; luego se cuentan las letras hasta toparse con un espacio o con el
   inicio del texto. Por eso se evitan split y trim: se practica controlar los índices.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - while, texto[i] y .length.
-NO PERMITIDO
-  - trim, split y lastIndexOf.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un texto de letras y espacios (el espacio ' ' es el único separador). Puede estar vacío,
+    tener solo espacios, y tener espacios al inicio, entre palabras y al final.
+  Usa:
+  - El texto recibido, leído por índice (texto[i]), bucles while y variables numéricas.
+  No uses:
+  - trim, split, lastIndexOf, slice, reverse, .at(), expresiones regulares ni arreglos
+    auxiliares.
 
 QUÉ DEBES HACER
   1. Declara la función longitudUltimaPalabra(texto). Recibe un texto y devuelve un número.
-  2. Crea la variable «i» con valor texto.length - 1 (el último carácter) y la variable
-     «cuenta» con valor 0.
-  3. Primero salta los espacios finales: mientras i >= 0 y texto[i] sea un espacio (' '),
-     resta 1 a i. (Usa un while.)
-  4. Luego cuenta la palabra: mientras i >= 0 y texto[i] NO sea un espacio, suma 1 a «cuenta»
-     y resta 1 a i. (Otro while.)
-  5. Devuelve «cuenta». Con texto vacío o solo espacios, ningún while cuenta nada y el
-     resultado es 0.
-  6. Prohibido: trim, split y lastIndexOf.
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Devuelve cuántos caracteres tiene la última palabra de texto. Una palabra es una
+     secuencia de caracteres distintos de espacio; los espacios al final no cuentan.
+  3. Si el texto está vacío o solo tiene espacios, devuelve 0.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(longitudUltimaPalabra('Hello World'));                  // 5
@@ -733,23 +704,25 @@ SITUACIÓN
   «corta» se busca ahora; ese índice avanza cada vez que se encuentra la letra buscada. Si
   al final se encontraron todas, es subsecuencia.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - for, texto[i], .length y la comparación === entre caracteres.
-NO PERMITIDO
-  - Nada más aparte de la lista general.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Dos textos, «corta» y «larga»; cualquiera puede estar vacío, y «corta» puede ser más
+    larga que «larga».
+  Usa:
+  - El texto «larga» recorrido con un for con índice en UN solo recorrido, y variables
+    numéricas (sin arreglos).
+  No uses:
+  - includes, indexOf, split, expresiones regulares, bucles anidados, recursión ni arreglos
+    auxiliares.
 
 QUÉ DEBES HACER
-  1. Declara la función esSubsecuencia(corta, larga). Recibe dos textos y devuelve un booleano.
-  2. Crea la variable «p» con valor 0: indica cuál letra de «corta» estás buscando ahora.
-  3. Recorre «larga» UNA sola vez con un for: i empieza en 0, continúa mientras
-     i < larga.length y avanza de 1 en 1.
-  4. En cada vuelta, si p < corta.length Y larga[i] es igual a corta[p], suma 1 a p
-     (encontraste esa letra; ahora buscas la siguiente).
-  5. Al terminar el bucle, devuelve p === corta.length (true si encontraste todas las letras).
-     Con «corta» vacía, p ya es igual a corta.length (0) y el resultado es true.
-  6. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función esSubsecuencia(corta, larga). Recibe dos textos y devuelve un
+     booleano.
+  2. Devuelve true si se puede obtener «corta» borrando cero o más caracteres de «larga»
+     sin cambiar el orden de los que quedan. Cada carácter de «larga» se usa una sola vez
+     ('aa' NO es subsecuencia de 'a'). Mayúsculas y minúsculas son distintas.
+  3. Con «corta» vacía devuelve true. Con «larga» vacía y «corta» no vacía devuelve false.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(esSubsecuencia('ace', 'abcde'));   // true
@@ -787,24 +760,25 @@ SITUACIÓN
   dos lados iguales pero no es un triángulo; si preguntaras por 'isosceles' antes,
   responderías mal.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - if, las comparaciones (<=, ===) y los operadores && y ||.
-NO PERMITIDO
-  - sort.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Tres números que son las longitudes de los lados; pueden ser cero, negativos o
+    decimales.
+  Usa:
+  - Solo variables y condicionales (if/else) con operadores de comparación y lógicos
+    (===, <=, &&, ||).
+  No uses:
+  - sort, Math.max, Math.min, Set ni arreglos auxiliares.
 
 QUÉ DEBES HACER
   1. Declara la función clasificarTriangulo(a, b, c). Recibe tres números y devuelve un texto.
-  2. PRIMERO comprueba lo inválido. Devuelve 'invalido' si se cumple CUALQUIERA de estas:
-     a) algún lado es menor o igual que 0;
-     b) la suma de dos lados es menor o igual que el tercero, en cualquiera de las tres
-        combinaciones: a + b <= c, a + c <= b, b + c <= a.
-  3. Si es válido y a === b y b === c, devuelve 'equilatero'.
-  4. Si no, y al menos dos lados son iguales (a === b, b === c o a === c), devuelve 'isosceles'.
-  5. En cualquier otro caso, devuelve 'escaleno'.
-  6. Prohibido: sort.
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Devuelve 'invalido' si algún lado es menor o igual que 0, o si la suma de dos lados
+     cualesquiera es menor o igual que el tercero. Un trío inválido da 'invalido' aunque
+     tenga lados iguales (2, 2, 4).
+  3. Si es válido, devuelve 'equilatero' con los tres lados iguales, 'isosceles' con
+     exactamente dos lados iguales (estén en la posición que estén) y 'escaleno' con los
+     tres lados distintos.
+  4. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(clasificarTriangulo(3, 3, 3));    // 'equilatero'
@@ -838,25 +812,25 @@ SITUACIÓN
   Idea: combinar condiciones con && y || para decidir el año bisiesto, y usar un switch para
   agrupar los meses que comparten el mismo resultado.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - switch con casos agrupados, Number.isInteger(), el operador % y los operadores && y ||.
-  - La función auxiliar esBisiesto.
-NO PERMITIDO
-  - Nada más aparte de la lista general.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - mes: un número que puede ser entero de 1 a 12, pero también 0, negativo, mayor que 12 o
+    decimal. anio: un entero positivo.
+  Usa:
+  - Una función auxiliar esBisiesto(anio), un switch sobre el mes, Number.isInteger y el
+    operador %.
+  No uses:
+  - Date, arreglos o tablas con los días de cada mes, ni objetos o Map.
 
 QUÉ DEBES HACER
-  1. Declara la función auxiliar esBisiesto(anio). Devuelve true si el año es divisible entre 4
-     Y (no es divisible entre 100 O es divisible entre 400); si no, false.
-     Se escribe: anio % 4 === 0 && (anio % 100 !== 0 || anio % 400 === 0).
+  1. Declara la función auxiliar esBisiesto(anio). Recibe un año y devuelve true si es
+     bisiesto según la regla de SITUACIÓN, y false si no.
   2. Declara la función diasDelMes(mes, anio). «mes» va de 1 (enero) a 12 (diciembre).
-  3. Si mes no es un entero entre 1 y 12, devuelve -1 y termina.
-     (Number.isInteger(mes) te ayuda a descartar decimales.)
-  4. Usa un switch sobre mes:
-     a) casos 4, 6, 9 y 11 (agrúpalos, uno debajo de otro): devuelve 30;
-     b) caso 2: devuelve 29 si esBisiesto(anio) es true, y 28 si es false;
-     c) default (cualquier otro mes): devuelve 31.
+     Devuelve un número.
+  3. Devuelve 30 para abril, junio, septiembre y noviembre; 29 para febrero en año
+     bisiesto y 28 en año no bisiesto; 31 para los demás meses.
+  4. Si mes no es un entero entre 1 y 12 (0, negativos, mayores que 12, decimales),
+     devuelve -1.
   5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
@@ -892,29 +866,29 @@ SITUACIÓN
   Idea: el orden de las reglas y los valores borde. Las condiciones cambian justo en 4 y 5,
   en 12 y 13, y en 64 y 65; ahí es donde se equivocan casi todas las soluciones.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - if/else, las comparaciones, && y ||, y la aritmética (-, *, /).
-  - Comparar texto con ===.
-NO PERMITIDO
-  - Nada más aparte de la lista general.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - edad: un entero (puede ser negativo). esEstudiante: un booleano. dia: un texto en
+    minúsculas y sin tilde ('lunes', 'martes', 'miercoles'…).
+  Usa:
+  - Condicionales if/else con comparaciones y variables numéricas; los precios y
+    porcentajes son enteros.
+  No uses:
+  - Math.max, Math.min, arreglos, objetos ni Map.
 
 QUÉ DEBES HACER
-  1. Declara la función precioBoleto(edad, esEstudiante, dia). Recibe un número, un booleano
-     y un texto en minúsculas (por ejemplo 'lunes' o 'miercoles'), y devuelve un número.
-  2. Si edad es menor que 0, devuelve -1 y termina (dato inválido).
-  3. Si edad es menor que 5, devuelve 0 y termina (gratis).
-  4. Calcula el precio base y guárdalo en «base»:
-     a) edad de 12 o menos → 50;
-     b) edad de 13 a 64 → 100;
-     c) edad de 65 o más → 60.
-  5. Crea la variable «descuento» con valor 0. Representa un porcentaje entero.
-  6. Si dia es 'miercoles', haz descuento = 50.
-  7. Si esEstudiante es true Y edad está entre 13 y 64 (inclusive), y 20 es MAYOR que el
-     descuento actual, haz descuento = 20. (Así nunca se suman: se queda el mayor.)
-  8. Devuelve base - base * descuento / 100.
-  9. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función precioBoleto(edad, esEstudiante, dia). Recibe un entero, un
+     booleano y un texto, y devuelve un número.
+  2. Si edad es menor que 0, devuelve -1 (dato inválido).
+  3. Si edad es 0 a 4, el boleto es gratis: devuelve 0.
+  4. Precio base según la edad: de 5 a 12 años, 50; de 13 a 64 años, 100; de 65 años o más, 60.
+  5. Descuentos, como porcentaje del precio base:
+     a) el día 'miercoles': 50 %, para cualquier edad;
+     b) esEstudiante es true y edad de 13 a 64 inclusive: 20 %;
+     c) cualquier otro caso: sin descuento.
+     Si aplican a) y b) a la vez, NO se suman: se aplica solo el mayor.
+  6. Devuelve el precio base menos el descuento que corresponda.
+  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(precioBoleto(-1, false, 'lunes'));      // -1    (edad inválida)
@@ -953,29 +927,25 @@ SITUACIÓN
   tipo de carácter que aparece. Al terminar, se cuentan cuántos criterios se cumplen y con
   eso se decide la clasificación.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - for...of, comparar caracteres (c >= 'A' && c <= 'Z'), banderas booleanas y .length.
-NO PERMITIDO
-  - Expresiones regulares (test, match).
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un texto cualquiera: puede estar vacío y contener símbolos, espacios y letras con tilde.
+  Usa:
+  - La clave recorrida con un for...of en UN solo recorrido, variables booleanas y
+    numéricas, y comparaciones entre caracteres (por ejemplo c >= 'a').
+  No uses:
+  - Expresiones regulares (test, match), some, every, split, Set, Map ni arreglos auxiliares.
 
 QUÉ DEBES HACER
   1. Declara la función clasificarClave(clave). Recibe un texto y devuelve un texto.
-  2. Crea tres variables booleanas, todas con valor false: «hayMayuscula», «hayMinuscula»
-     y «hayDigito».
-  3. Recorre la clave con for...of: en cada vuelta tendrás un carácter «c».
-  4. En cada vuelta, activa la bandera que corresponda (ponla en true):
-     a) si c >= 'A' && c <= 'Z' → hayMayuscula;
-     b) si c >= 'a' && c <= 'z' → hayMinuscula;
-     c) si c >= '0' && c <= '9' → hayDigito.
-  5. Después del bucle, crea «criterios» con valor 0 y suma 1 por cada condición verdadera:
-     clave.length >= 8, hayMayuscula, hayMinuscula y hayDigito.
-  6. Devuelve:
-     a) 'fuerte' si criterios es 4;
-     b) 'media' si criterios es 3;
-     c) 'debil' en cualquier otro caso.
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Los criterios son cuatro: a) tiene 8 caracteres o más (cuentan todos, también los
+     símbolos); b) tiene al menos una mayúscula de la A a la Z; c) tiene al menos una
+     minúscula de la a a la z; d) tiene al menos un dígito del 0 al 9.
+  3. Devuelve 'fuerte' si cumple los cuatro criterios, 'media' si cumple exactamente tres,
+     y 'debil' si cumple dos o menos.
+  4. Un carácter que no es letra de la A a la Z ni dígito (símbolos, espacios, la ñ) no
+     cuenta para los criterios b), c) ni d).
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(clasificarClave('Abcdef12'));   // 'fuerte'   (cumple los 4)
@@ -1011,24 +981,25 @@ SITUACIÓN
   Idea: un algoritmo voraz. Se va de la moneda más grande a la más chica, usando cada una
   tantas veces como quepa en lo que todavía falta por devolver.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - for...of sobre «monedas», while, [] y .push(), Number.isInteger().
-NO PERMITIDO
-  - Nada más aparte de la lista general.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un número monto: puede ser cero, negativo o decimal.
+  Usa:
+  - Un arreglo con las ocho monedas disponibles y un arreglo nuevo para el resultado (con
+    .push()), un bucle for...of y un while, y variables numéricas.
+  No uses:
+  - Math.floor, Math.trunc, recursión, sort, reverse, map, reduce ni modificar el arreglo
+    de monedas.
 
 QUÉ DEBES HACER
-  1. Declara la función cambioMinimo(monto). Recibe un número y devuelve un arreglo de números.
-  2. Si monto NO es un entero positivo (Number.isInteger(monto) y monto > 0), devuelve [] y
-     termina. Esto cubre 0, negativos y decimales.
-  3. Crea el arreglo «monedas» con [200, 100, 50, 20, 10, 5, 2, 1] (de mayor a menor).
-  4. Crea «resultado» con [] y «falta» con el valor de monto.
-  5. Recorre «monedas» con for...of: en cada vuelta tendrás una «moneda».
-  6. Dentro, repite con un while mientras falta >= moneda: agrega moneda a «resultado» con
-     push y réstala de «falta».
-  7. Al terminar los bucles, devuelve «resultado».
-  8. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función cambioMinimo(monto). Recibe un número y devuelve un arreglo de
+     números.
+  2. Las monedas disponibles son 200, 100, 50, 20, 10, 5, 2 y 1, sin límite de existencias.
+  3. Si monto es un entero positivo, devuelve las monedas que suman exactamente monto,
+     usando el menor número posible de monedas, ordenadas de mayor a menor. Una moneda
+     usada varias veces aparece repetida ([200, 200] para 400).
+  4. Si monto no es un entero positivo (0, negativo o decimal), devuelve [].
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(cambioMinimo(289));   // [200, 50, 20, 10, 5, 2, 2]
@@ -1060,28 +1031,25 @@ SITUACIÓN
   segundo mayor visto. Cuando aparece un valor nuevo se actualizan juntos, porque el mayor
   anterior pasa a ser el segundo.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - for...of, undefined y las comparaciones.
-NO PERMITIDO
-  - sort, Math.max y Set.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un arreglo de números de cualquier longitud; puede estar vacío y tener negativos y
+    valores repetidos.
+  Usa:
+  - El arreglo recibido, recorrido con un for...of en UN solo recorrido, y variables
+    sueltas (sin arreglos auxiliares).
+  No uses:
+  - sort, Math.max, Math.min, Set, Map, reduce, filter, arreglos auxiliares ni modificar arr.
 
 QUÉ DEBES HACER
-  1. Declara la función segundoMayor(arr). Recibe un arreglo de números y devuelve un número
-     o undefined.
-  2. Crea dos variables sin valor inicial: «mayor» y «segundo» (ambas valen undefined).
-  3. Recorre arr UNA sola vez con for...of: en cada vuelta tendrás un número «n».
-  4. En cada vuelta, evalúa en este orden:
-     a) si «mayor» es undefined, o n es mayor que «mayor»: haz segundo = mayor y luego
-        mayor = n. (El mayor anterior pasa a ser el segundo.)
-     b) si no, y n es distinto de «mayor», y («segundo» es undefined o n es mayor que
-        «segundo»): haz segundo = n.
-     c) en cualquier otro caso (n repetido o menor), no hagas nada.
-  5. Al terminar el bucle, devuelve «segundo». Si no hubo dos valores distintos, sigue
-     siendo undefined.
-  6. Prohibido: sort, Math.max y Set.
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función segundoMayor(arr). Recibe un arreglo de números y devuelve un
+     número o undefined.
+  2. Devuelve el mayor de los valores que son estrictamente menores que el máximo de arr:
+     el segundo valor DISTINTO más grande. Un valor repetido cuenta una sola vez.
+  3. Si arr no tiene al menos dos valores distintos (vacío, un solo elemento o todos
+     iguales), devuelve undefined.
+  4. arr queda intacto.
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(segundoMayor([3, 1, 4, 4, 2]));   // 3           (el 4 repetido cuenta una vez)
@@ -1114,30 +1082,25 @@ SITUACIÓN
   Idea: recorrer los dígitos de derecha a izquierda propagando ese acarreo, hasta encontrar
   un dígito menor que 9 al que sumarle 1.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - Spread: [...digitos] y [1, ...copia] (en este ejercicio SÍ se permite).
-  - for hacia atrás, arr[i] y .length.
-NO PERMITIDO
-  - Convertir a número: Number, parseInt, BigInt.
-  - Convertir a texto: String, toString, join, plantillas con ${}.
-  - Modificar el arreglo original (las pruebas lo verifican).
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un arreglo no vacío de dígitos enteros entre 0 y 9, del más al menos significativo, sin
+    ceros a la izquierda (salvo el número [0]). Puede tener decenas de dígitos.
+  Usa:
+  - Un arreglo nuevo (copia) donde trabajar, creado con spread (...), y un for con índice.
+  No uses:
+  - Number, parseInt, BigInt, String, toString, join ni ninguna conversión del arreglo a
+    número o a texto; recursión; ni modificar el arreglo recibido.
 
 QUÉ DEBES HACER
-  1. Declara la función sumarUno(digitos). Recibe un arreglo de dígitos (0–9) y devuelve un
-     arreglo nuevo.
-  2. Crea una COPIA del arreglo y guárdala en «copia»: const copia = [...digitos].
-     No modifiques el arreglo original.
-  3. Recorre «copia» DE DERECHA A IZQUIERDA con un for: i empieza en copia.length - 1,
-     continúa mientras i >= 0 y retrocede de 1 en 1.
-  4. En cada vuelta:
-     a) si copia[i] es menor que 9: súmale 1 y devuelve «copia» (ya terminaste);
-     b) si es 9: conviértelo en 0 y sigue con el dígito anterior (esto es el acarreo).
-  5. Si el bucle termina sin haber devuelto nada, todos los dígitos eran 9 y ahora son 0.
-     Devuelve un arreglo con 1 al inicio seguido de los dígitos de «copia»: [1, ...copia].
-  6. Prohibido: convertir a número (Number, parseInt, BigInt) o a texto.
-  7. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  1. Declara la función sumarUno(digitos). Recibe un arreglo de dígitos y devuelve un
+     arreglo nuevo de dígitos.
+  2. El resultado representa el número recibido más 1, con el mismo formato: del dígito
+     más significativo al menos significativo, sin ceros a la izquierda.
+  3. Si el resultado necesita un dígito más (99 + 1 = 100), el arreglo resultante es una
+     posición más largo y empieza por 1.
+  4. digitos queda intacto.
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(sumarUno([1, 2, 3]));      // [1, 2, 4]
@@ -1171,24 +1134,26 @@ SITUACIÓN
   comprobar que estás en una cima válida (ni al inicio ni al final), bajar mientras haya
   bajada y verificar que llegaste al último elemento.
 
-PERMITIDO  (lo que no aparece en NO PERMITIDO también se puede usar)
-  - while, arr[i], arr[i + 1], .length y las comparaciones.
-NO PERMITIDO
-  - Nada más aparte de la lista general.
-  - Además, en todos los ejercicios: map, filter, reduce, forEach, find, some, every, sort,
-    reverse, Math.max, Math.min, expresiones regulares, Set y Map.
+RESTRICCIONES
+  Datos:
+  - Un arreglo de números; puede estar vacío, tener negativos y valores repetidos.
+  Usa:
+  - El arreglo recibido, leído por índice (arr[i], arr[i + 1]), bucles while y una variable
+    numérica para la posición.
+  No uses:
+  - Math.max, Math.min, indexOf, sort, reverse, slice, recursión, arreglos auxiliares ni
+    modificar arr.
 
 QUÉ DEBES HACER
   1. Declara la función esMontana(arr). Recibe un arreglo de números y devuelve un booleano.
-  2. Si arr tiene menos de 3 elementos, devuelve false y termina.
-  3. Crea la variable «i» con valor 0 (la posición donde estás parado).
-  4. SUBE: con un while, repite mientras i + 1 < arr.length Y arr[i] < arr[i + 1]: suma 1 a i.
-  5. Si «i» quedó en 0 (nunca subió) o en arr.length - 1 (subió hasta el final y nunca bajó),
-     devuelve false: la cima no puede estar en un extremo.
-  6. BAJA: con otro while, repite mientras i + 1 < arr.length Y arr[i] > arr[i + 1]: suma 1 a i.
-  7. Devuelve i === arr.length - 1 (true solo si recorriste todo el arreglo).
-     Si hay dos valores iguales seguidos, ningún while avanza y no llegas al final: false.
-  8. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
+  2. Devuelve true si existe una cima tal que: desde el primer elemento hasta la cima cada
+     elemento es ESTRICTAMENTE mayor que el anterior, y desde la cima hasta el último cada
+     elemento es ESTRICTAMENTE menor que el anterior. La cima no puede ser el primero ni
+     el último elemento: hay al menos un paso de subida y uno de bajada.
+  3. Devuelve false en cualquier otro caso: arreglo vacío o con menos de 3 elementos, que
+     solo suba o solo baje, con dos valores iguales seguidos, o que baje y vuelva a subir.
+  4. arr queda intacto.
+  5. Ejecuta las líneas de COMPRUEBA y compara con lo esperado.
 
 COMPRUEBA
   console.log(esMontana([0, 3, 2, 1]));               // true
