@@ -1,4 +1,4 @@
-# Guía para generar ejercicios de práctica (JavaScript)
+# Guía para agentes
 
 Este archivo indica cómo crear compendios de ejercicios en `00.Ejercicios/Repaso` y cómo se
 relacionan con la ruta de aprendizaje. El formato es el del `Compendio03.ts` del curso de
@@ -6,44 +6,74 @@ TypeScript, adaptado a JavaScript, con una diferencia clave: **QUÉ DEBES HACER 
 problema con precisión (entradas, salida y reglas), pero NUNCA el algoritmo.** El alumno decide
 cómo resolverlo; RESTRICCIONES le dice con qué herramientas puede hacerlo y con cuáles no.
 
-## 1. Objetivo
+## Cuándo editar apuntes
 
-Dominar estructuras de datos y algoritmos para resolver ejercicios difíciles de LeetCode y
-desarrollar una buena lógica de programación. Prioridades, en orden:
+- Crea, amplía, corrige o reorganiza apuntes en archivos `.md` o `.js` únicamente
+  cuando lo solicite expresamente. Una pregunta sobre un concepto no autoriza
+  por sí sola a modificar archivos.
+- Antes de escribir, identifica el tema, la referencia y el archivo de destino
+  a partir de la petición y del contexto ya establecido en la conversación.
+- Si falta alguno de esos datos y no puede determinarse con ese contexto,
+  pregunta solo por la información faltante antes de editar los apuntes.
 
-1. Dominar los temas de la etapa en curso, para afrontar eventualmente ejercicios difíciles.
-2. Ejercicios prácticos, sustentados en las etapas de la ruta.
-3. Enfocarse en la etapa en curso (hoy, la **Etapa 1**).
+## Referencias y alcance
 
-Prioriza **aprender**: información precisa, breve y comprensible. Sé quirúrgico, sin relleno,
-tanto en los apuntes como en los ejercicios.
+- Si indico archivos `.js` como referencia, léelos y basa los apuntes en los
+  conceptos presentes en ellos. Si señalo fragmentos concretos, limita el alcance
+  a esos fragmentos.
+- Al generar apuntes a partir de secciones o archivos `.js`, redacta un apunte
+  nuevo y autónomo sobre los conceptos identificados. Los archivos son la fuente
+  para determinar el tema y su alcance: no redactes una descripción del archivo,
+  un recorrido línea por línea ni un resumen de sus clases, variables o funciones.
+  Organiza la explicación por conceptos y utiliza ejemplos breves cuando ayuden.
+  El apunte debe entenderse sin abrir los archivos de referencia.
+- Si no indico archivos `.js` como referencia, utiliza únicamente los apartados
+  que señale del archivo Markdown indicado. No amplíes el contenido a otros
+  apartados por iniciativa propia.
+- Si proporciono referencias de ambos formatos, respeta el propósito que indique
+  para cada una. Si se contradicen y no está claro cuál debe prevalecer, pregunta.
+- Puedes añadir las aclaraciones y los ejemplos mínimos necesarios para entender
+  los conceptos solicitados. No introduzcas temas nuevos ni adelantes secciones
+  posteriores del curso.
+- Comprueba la exactitud de las explicaciones. Si una referencia contiene un
+  error, explica el comportamiento correcto en los apuntes y menciona la
+  discrepancia al entregar el trabajo. No modifiques el archivo de referencia
+  salvo que también haya solicitado corregirlo.
 
-## 2. Ruta de aprendizaje
+## Claridad y formato
 
-Se avanza de forma progresiva, **sin introducir estructuras complejas antes de comprender sus
-fundamentos**. Cada etapa se apoya en la anterior.
+- Mantén el contenido breve, pero suficiente para comprender el concepto.
+  Elimina repeticiones, explicaciones ajenas al tema y tecnicismos innecesarios.
+- Redacta con precisión y sin ambigüedades. Evita información extensa, detalles
+  secundarios y explicaciones exageradas; incluye solo lo necesario para
+  comprender y aplicar el concepto solicitado.
+- Explica qué es cada concepto solicitado y para qué sirve. Define los términos
+  técnicos necesarios con palabras sencillas cuando aparezcan por primera vez.
+- Cuando un ejemplo ayude a entender, incluye uno pequeño y centrado en el
+  concepto. Explica su comportamiento y el resultado esperado cuando corresponda.
+- En Markdown, utiliza títulos descriptivos, párrafos breves y bloques de código
+  con el lenguaje indicado. Usa listas solo cuando faciliten la lectura.
+- En TypeScript, utiliza código sencillo y comentarios educativos. Conserva la
+  validez sintáctica y evita introducir errores de tipos. Si necesitas mostrar
+  una instrucción incorrecta para explicar un error, déjala comentada e indica
+  por qué falla.
 
-### Etapa 1 — Fundamentos y arrays · EN CURSO (punto de partida)
-- **Temas:** arrays, strings, índices, iteraciones, condicionales, acumuladores, Big O y problemas
-  con múltiples condiciones.
-- **Se domina cuando:** recorres arrays y strings sin errores de borde, usas acumuladores
-  (contador, suma, máximo, banderas), ordenas bien las condiciones y distingues O(n) de O(n²).
-- **Teoría (`01.Bases`):** `06-strings`, `08-conditionals`, `10-array`, `14-loops`,
-  `32-accumulators`, `33-big-o`.
-- **Ejercicios:** `Repaso/Repaso01.js` (temático, nombres en español) y `Repaso/Arrays.js`
-  (estilo LeetCode/HackerRank, nombres en inglés).
+## Conservación y revisión
 
-### Etapa 2 — Hash Maps y patrones · pendiente
-- **Temas:** Sets, Maps, frecuencias, Two Pointers, Sliding Window, Stack, Queue y Binary Search.
-- **Teoría que ya existe:** sintaxis de Set y Map (`11-set`, `12-map`) y operaciones avanzadas
-  (`02.Intermedio/02-advanced-structures`).
-- **Teoría que falta (crear al empezar la etapa):** frecuencias, Two Pointers, Sliding Window,
-  Stack, Queue y Binary Search.
+- Respeta la organización, el estilo y el contenido útil existentes. Agrega o
+  modifica solo lo necesario para la petición; no borres trabajo ajeno ni
+  reestructures otros archivos.
+- Después de guardar el Markdown generado o actualizado, abre y lee de nuevo
+  el archivo completo. Esta revisión es obligatoria antes de entregar el trabajo.
+  Comprueba que explica los conceptos de forma autónoma, no describe los archivos
+  de referencia y es breve, preciso, claro y sin ambigüedades. Verifica también
+  el alcance solicitado y la exactitud de las explicaciones y los ejemplos.
+- Corrige los errores, las repeticiones y los excesos detectados, y vuelve a leer
+  las partes corregidas. Aplica también la revisión del contenido a apuntes en `.js`.
+- En la respuesta final, enlaza el archivo modificado y resume brevemente los
+  cambios y la revisión realizada.
 
-### Etapa 3 — Recursividad, árboles y heaps · pendiente
-- **Temas:** recursividad, Binary Trees, Binary Search Trees, DFS, BFS, Priority Queues y Heaps.
-- **Teoría que ya existe:** un apartado de recursividad en `02.Intermedio/00-advanced-functions`.
-- **Teoría que falta:** todo lo demás.
+## Relación con las instrucciones de ejercicios
 
 ### Etapa 4 — Grafos · pendiente
 - **Temas:** representación de grafos, recorridos, caminos, ciclos y problemas combinados.

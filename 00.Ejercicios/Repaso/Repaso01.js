@@ -55,7 +55,7 @@ REGLAS
 // BLOQUE A — ARRAYS E ÍNDICES
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 01 — Extremos de un arreglo
+//! EJERCICIO 01 — Extremos de un arreglo
 /*
 SITUACIÓN
   Una estación meteorológica guarda las temperaturas del día en un arreglo, de la primera
@@ -109,7 +109,7 @@ EXPLICA
 
 }
 
-// EJERCICIO 02 — Contar los que superan un límite
+//! EJERCICIO 02 — Contar los que superan un límite
 /*
 SITUACIÓN
   Una persona anotó la temperatura de cada día de la semana y quiere saber en cuántos días
@@ -165,7 +165,7 @@ EXPLICA
 
 }
 
-// EJERCICIO 03 — El mayor sin Math.max
+//! EJERCICIO 03 — El mayor sin Math.max
 /*
 SITUACIÓN
   Una tienda guarda los precios de sus productos en un arreglo y quiere saber cuál es el más
@@ -229,7 +229,7 @@ COMPLEJIDAD
 }
 
 
-// EJERCICIO 04 — Invertir sin reverse
+//! EJERCICIO 04 — Invertir sin reverse
 /*
 SITUACIÓN
   Un maestro tiene la lista de asistencia en el orden en que llegaron los alumnos y quiere
@@ -287,7 +287,7 @@ EXPLICA
 }
 
 
-// EJERCICIO 05 — Intercambiar dos posiciones
+//! EJERCICIO 05 — Intercambiar dos posiciones
 /*
 SITUACIÓN
   Para ordenar una lista, invertirla o mover elementos, la operación más básica es
@@ -340,18 +340,19 @@ EXPLICA
 // TU SOLUCIÓN
 {
   function intercambiar(arr, i, j){
-
-    for(let a = 0; a < arr.length; a++){
-      let b;
-      if(a === i){
-        b = a
-      }
-      for(let c = a +1; c < arr.length; c++ ){
-        if(c === j){
-          arr[a] = c; arr[c] = b
-        }
-      }
+    const isValido = (k) => Number.isInteger(k) && k >= 0 && k < arr.length
+    if(!isValido(i) || 
+    i< 0 || 
+    i > arr.length || 
+    j > arr.length || j<0 ||!isValido(j)){
+      return arr
     }
+
+    let temporal;
+
+    temporal = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temporal
 
     return arr
   }
@@ -359,7 +360,7 @@ EXPLICA
 }
 
 
-// EJERCICIO 06 — Rotar a la izquierda
+//! EJERCICIO 06 — Rotar a la izquierda
 /*
 SITUACIÓN
   Un banco atiende en una fila circular: cuando la fila avanza k lugares, las k primeras
@@ -430,7 +431,7 @@ COMPLEJIDAD
 // BLOQUE B — STRINGS Y RECORRIDOS
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 07 — Contar vocales
+//! EJERCICIO 07 — Contar vocales
 /*
 SITUACIÓN
   Un corrector ortográfico quiere saber cuántas vocales tiene una palabra o frase para sus
@@ -472,24 +473,22 @@ EXPLICA
 // TU SOLUCIÓN
 {
   function contarVocales(texto){
-    let contador;
-    texto = texto.toLowerCase()
-    vowels = new Set(['a', 'o', 'i', 'e', 'u'])
+   let contador = 0;
+   const minusculas = texto.toLowerCase();
+   const vowels = 'aeiou'
 
-    for(let i = 0; i < texto.length; i++){
-      if( vowels.has(texto)){
-        contador += 1
-      }
-
+    for(const c of minusculas){
+      if(vowels.includes(c)) contador ++
     }
-    
     return contador
   }
-
+{/*Comentario: mi solución no fue suficiente, repasé de nuevo el tema de for-of, además no sabía que podía considerar
+  'vowels' como array, lo estaba considerando como set.
+  */}
 }
 
 
-// EJERCICIO 08 — Capitalizar cada palabra
+//! EJERCICIO 08 — Capitalizar cada palabra
 /*
 SITUACIÓN
   Un formulario recibe nombres escritos de cualquier manera (por ejemplo, 'jAVAsCRIPT' o
@@ -532,9 +531,24 @@ EXPLICA
   ¿Qué error ocurre si aplicas toUpperCase() sobre ''[0]? ¿Cómo lo evitaste?
 */
 // TU SOLUCIÓN
+{
+  function capitalizar(frase){
+    normalize = frase.toLowerCase();
+    let stock = []
+
+    for(const c of normalize){
+      
+    }
 
 
-// EJERCICIO 09 — Palíndromo con dos extremos
+    return stock
+  }
+
+  {}
+}
+
+
+//! EJERCICIO 09 — Palíndromo con dos extremos
 /*
 SITUACIÓN
   Un palíndromo es un texto que se lee igual de izquierda a derecha que de derecha a
@@ -587,7 +601,7 @@ COMPLEJIDAD
 // TU SOLUCIÓN
 
 
-// EJERCICIO 10 — Comprimir repeticiones
+//! EJERCICIO 10 — Comprimir repeticiones
 /*
 SITUACIÓN
   Para ahorrar espacio, un sistema guarda un texto con letras repetidas indicando cada letra
@@ -632,7 +646,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 11 — Longitud de la última palabra
+//! EJERCICIO 11 — Longitud de la última palabra
 /*
 SITUACIÓN
   Un editor de texto quiere mostrar la longitud de la última palabra de lo que escribió el
@@ -675,7 +689,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 12 — Subsecuencia
+//! EJERCICIO 12 — Subsecuencia
 /*
 SITUACIÓN
   Un buscador sugiere una palabra cuando las letras que escribiste aparecen en ella en el
@@ -730,7 +744,7 @@ COMPLEJIDAD
 // BLOQUE C — CONDICIONALES Y REGLAS MÚLTIPLES
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 13 — Clasificar un triángulo
+//! EJERCICIO 13 — Clasificar un triángulo
 /*
 SITUACIÓN
   Un programa de geometría recibe tres longitudes y debe decir qué tipo de triángulo forman:
@@ -783,7 +797,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 14 — Días de un mes
+//! EJERCICIO 14 — Días de un mes
 /*
 SITUACIÓN
   Una aplicación de calendario necesita saber cuántos días tiene un mes de un año concreto.
@@ -837,7 +851,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 15 — Precio de un boleto
+//! EJERCICIO 15 — Precio de un boleto
 /*
 SITUACIÓN
   Un cine calcula el precio de cada boleto con estas ideas: los menores de 5 años entran
@@ -898,7 +912,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 16 — Fortaleza de una clave
+//! EJERCICIO 16 — Fortaleza de una clave
 /*
 SITUACIÓN
   Un formulario de registro evalúa la contraseña que escribe el usuario con cuatro
@@ -953,7 +967,7 @@ EXPLICA
 // BLOQUE D — INTEGRACIÓN ESTILO LEETCODE
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 17 — Cambio con el menor número de monedas
+//! EJERCICIO 17 — Cambio con el menor número de monedas
 /*
 SITUACIÓN
   Una caja registradora debe devolver el cambio con el menor número de monedas posible. Hay
@@ -1002,7 +1016,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 18 — El segundo mayor
+//! EJERCICIO 18 — El segundo mayor
 /*
 SITUACIÓN
   Un ranking guarda las puntuaciones de una competencia, con repeticiones posibles, y
@@ -1054,7 +1068,7 @@ COMPLEJIDAD
 // TU SOLUCIÓN
 
 
-// EJERCICIO 19 — Sumar uno a un número en dígitos
+//! EJERCICIO 19 — Sumar uno a un número en dígitos
 /*
 SITUACIÓN
   Un número demasiado grande para JavaScript se guarda como un arreglo de dígitos, del más
@@ -1105,7 +1119,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 20 — Arreglo en forma de montaña
+//! EJERCICIO 20 — Arreglo en forma de montaña
 /*
 SITUACIÓN
   Un ingeniero revisa el perfil de altura de un sendero, registrado como un arreglo, y
