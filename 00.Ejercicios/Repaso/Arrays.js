@@ -362,7 +362,9 @@ EXPLICA
         if(nums.length < 2) return nums;
 
         for(const i of nums){
-            if( matchMedia.abs(i) < numberOne ){}
+            if( matchMedia.abs(i) < numberOne ){
+                numberTwo = numberOne
+            }
 
         }
     }
