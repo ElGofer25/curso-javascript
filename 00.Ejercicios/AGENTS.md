@@ -134,7 +134,7 @@ Reglas del estilo LeetCode/HackerRank:
 ## 7. Plantilla de ejercicio
 
 ```js
-// EJERCICIO NN — Título corto
+//! EJERCICIO NN — Título corto
 /*
 SITUACIÓN
   Contexto: qué problema real se resuelve, quién lo necesita y qué recibe/devuelve la función.
