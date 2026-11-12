@@ -55,7 +55,7 @@ REGLAS
 // BLOQUE A — RECORRIDOS Y ACUMULADORES
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 01 — Suma acumulada (LC 1480 · Running Sum of 1d Array)
+//! EJERCICIO 01 — Suma acumulada (LC 1480 · Running Sum of 1d Array)
 /*
 SITUACIÓN
   Un negocio anota sus ventas de cada día en un arreglo y quiere saber cuánto lleva vendido
@@ -115,7 +115,7 @@ EXPLICA
 
 
 
-// EJERCICIO 02 — Número faltante (LC 268 · Missing Number)
+//! EJERCICIO 02 — Número faltante (LC 268 · Missing Number)
 /*
 SITUACIÓN
   Una caja contiene fichas numeradas desde 0 hasta n, sin repetir, pero falta una. En el
@@ -175,7 +175,7 @@ COMPLEJIDAD
     }
 }
 
-// EJERCICIO 03 — Índice de equilibrio (LC 724 · Find Pivot Index)
+//! EJERCICIO 03 — Índice de equilibrio (LC 724 · Find Pivot Index)
 /*
 SITUACIÓN
   En una balanza con pesos alineados en fila, buscas una posición donde el peso total de la
@@ -217,26 +217,33 @@ COMPRUEBA
 
 EXPLICA
   ¿Qué pasa con el rendimiento si en cada posición sumas la izquierda y la derecha con dos
-  bucles nuevos?
-COMPLEJIDAD
+  bucles nuevos? Sigue siendo On, son dos bucles que no están anidados, así que no aumentan la complejidad temporal.
   ¿Cuál es el tiempo y el espacio extra de tu solución?
+  On ambos
 */
 // TU SOLUCIÓN
 {
     function pivotIndex(nums){
-        if(nums.length === 0) return 'Arreglo vacío';
 
-        let suma = 0;
-
-        for(let i = 0; nums.length; i++){
-            suma += nums[i]
+        let total = 0;
+        for(let i = 0; i < nums.length; i++){
+            total += nums[i]
         }
 
-        return
+        let izquierda = 0;
+        for(let i = 0; i < nums.length; i++){
+            let derecha = total - izquierda - nums[i];
+            if(  izquierda === derecha ){ 
+                return i
+            }else{
+            izquierda += nums[i]
+            }
+        }
+        return -1
     }
 }
 
-// EJERCICIO 04 — La racha de unos más larga (LC 485 · Max Consecutive Ones)
+//! EJERCICIO 04 — La racha de unos más larga (LC 485 · Max Consecutive Ones)
 /*
 SITUACIÓN
   Un sensor registra 1 cuando detecta movimiento y 0 cuando no. Quieres saber cuál fue el
@@ -275,13 +282,35 @@ COMPRUEBA
   console.log(findMaxConsecutiveOnes([]));                   // 0   (arreglo vacío)
 
 EXPLICA
-  ¿Por qué se actualiza «mejor» dentro del if y no solo cuando aparece un 0? ¿Qué falla con
-  [1, 1, 1] si solo lo actualizas en el 0?
+  ¿Por qué se actualiza «mejor» dentro del if y no solo cuando aparece un 0? 
+    R: Porque buscamos encontrar la 'racha' más grande. Eso solo lo logramos con un comparador
+
+  ¿Qué falla con [1, 1, 1] si solo lo actualizas en el 0?
+  R: Que nunca se actualiza, como la condición de cambio es 'i===0'; la condición nunca se cumple.
 */
 // TU SOLUCIÓN
+{
 
+    function findMaxConsecutiveOnes(nums) {
+        let mejor = 0;
+        let actual = 0;
 
-// EJERCICIO 05 — El número más cercano a cero (LC 2239 · Find Closest Number to Zero)
+        for (const i of nums) {
+            if (i === 1) actual += 1;
+
+            if (actual > mejor) {
+                mejor = actual
+            }
+            if( i == 0){
+                actual = 0;
+            }
+
+        }
+        return mejor
+    }
+}
+
+//! EJERCICIO 05 — El número más cercano a cero (LC 2239 · Find Closest Number to Zero)
 /*
 SITUACIÓN
   Un termómetro registra temperaturas, positivas y negativas, y quieres la lectura más cercana
@@ -325,8 +354,23 @@ EXPLICA
 */
 // TU SOLUCIÓN
 
+{
+    function findClosestNumber(nums){
+        let numberOne = nums[0];
+        let numberTwo;
 
-// EJERCICIO 06 — Velas del pastel (HR · Birthday Cake Candles)
+        if(nums.length < 2) return nums;
+
+        for(const i of nums){
+            if( matchMedia.abs(i) < numberOne ){
+                numberTwo = numberOne
+            }
+
+        }
+    }
+}
+
+//! EJERCICIO 06 — Velas del pastel (HR · Birthday Cake Candles)
 /*
 SITUACIÓN
   En un cumpleaños, el niño solo puede apagar las velas más altas del pastel. Recibes un arreglo
@@ -380,7 +424,7 @@ COMPLEJIDAD
 // BLOQUE B — ESTADO Y CONDICIONES
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 07 — Suma mínima y máxima (HR · Mini-Max Sum)
+//! EJERCICIO 07 — Suma mínima y máxima (HR · Mini-Max Sum)
 /*
 SITUACIÓN
   Con una lista de al menos dos enteros, quieres saber cuál es la suma más pequeña y cuál la
@@ -424,7 +468,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 08 — Proporciones (HR · Plus Minus)
+//! EJERCICIO 08 — Proporciones (HR · Plus Minus)
 /*
 SITUACIÓN
   Un profesor tiene las diferencias de calificación de su grupo (positivas, negativas o cero) y
@@ -469,7 +513,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 09 — Arreglo monótono (LC 896 · Monotonic Array)
+//! EJERCICIO 09 — Arreglo monótono (LC 896 · Monotonic Array)
 /*
 SITUACIÓN
   Una lista de lecturas es monótona si solo sube o se mantiene (nunca baja) o si solo baja o se
@@ -516,7 +560,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 10 — Sembrar flores (LC 605 · Can Place Flowers)
+//! EJERCICIO 10 — Sembrar flores (LC 605 · Can Place Flowers)
 /*
 SITUACIÓN
   Un jardinero tiene un parterre en fila: 1 es una posición ya sembrada y 0 una vacía. Las
@@ -569,7 +613,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 11 — Tercer mayor distinto (LC 414 · Third Maximum Number)
+//! EJERCICIO 11 — Tercer mayor distinto (LC 414 · Third Maximum Number)
 /*
 SITUACIÓN
   Quieres el tercer valor DISTINTO más grande de una lista. Si no existen tres valores
@@ -617,7 +661,7 @@ COMPLEJIDAD
 // TU SOLUCIÓN
 
 
-// EJERCICIO 12 — Dominante al doble (LC 747 · Largest Number At Least Twice of Others)
+//! EJERCICIO 12 — Dominante al doble (LC 747 · Largest Number At Least Twice of Others)
 /*
 SITUACIÓN
   En una competencia quieres saber si el ganador sacó al menos el doble que cada uno de los
@@ -668,7 +712,7 @@ EXPLICA
 // BLOQUE C — ÍNDICES: ESCRIBIR EN EL SITIO, INTERCALAR Y VUELTA CIRCULAR
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 13 — Quitar un valor en el sitio (LC 27 · Remove Element)
+//! EJERCICIO 13 — Quitar un valor en el sitio (LC 27 · Remove Element)
 /*
 SITUACIÓN
   Una lista de pedidos contiene un código que debe eliminarse, pero la lista ocupa una zona de
@@ -727,7 +771,7 @@ COMPLEJIDAD
 // TU SOLUCIÓN
 
 
-// EJERCICIO 14 — Quitar repetidos de un arreglo ordenado (LC 26 · Remove Duplicates from Sorted Array)
+//! EJERCICIO 14 — Quitar repetidos de un arreglo ordenado (LC 26 · Remove Duplicates from Sorted Array)
 /*
 SITUACIÓN
   Un listado ordenado de menor a mayor tiene valores repetidos y debes dejar cada uno una sola
@@ -781,7 +825,7 @@ COMPLEJIDAD
 // TU SOLUCIÓN
 
 
-// EJERCICIO 15 — Intercalar dos mitades (LC 1470 · Shuffle the Array)
+//! EJERCICIO 15 — Intercalar dos mitades (LC 1470 · Shuffle the Array)
 /*
 SITUACIÓN
   Como al barajar cartas, tienes un arreglo de 2n elementos con dos mitades: [x1, ..., xn,
@@ -828,7 +872,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 16 — Ordenado y rotado (LC 1752 · Check if Array Is Sorted and Rotated)
+//! EJERCICIO 16 — Ordenado y rotado (LC 1752 · Check if Array Is Sorted and Rotated)
 /*
 SITUACIÓN
   Un arreglo estaba ordenado de menor a mayor (con repetidos permitidos) y luego se rotó: se
@@ -881,7 +925,7 @@ EXPLICA
 // BLOQUE D — ARREGLOS DE ARREGLOS (MATRICES)
 // ═══════════════════════════════════════════════════════════════════════════
 
-// EJERCICIO 17 — Cliente más rico (LC 1672 · Richest Customer Wealth)
+//! EJERCICIO 17 — Cliente más rico (LC 1672 · Richest Customer Wealth)
 /*
 SITUACIÓN
   Un banco guarda el dinero de cada cliente en varias cuentas. Los datos están en una matriz:
@@ -928,7 +972,7 @@ COMPLEJIDAD
 // TU SOLUCIÓN
 
 
-// EJERCICIO 18 — Diferencia de diagonales (HR · Diagonal Difference)
+//! EJERCICIO 18 — Diferencia de diagonales (HR · Diagonal Difference)
 /*
 SITUACIÓN
   Una matriz cuadrada de n × n tiene dos diagonales: la principal (de la esquina superior
@@ -975,7 +1019,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 19 — Transponer una matriz (LC 867 · Transpose Matrix)
+//! EJERCICIO 19 — Transponer una matriz (LC 867 · Transpose Matrix)
 /*
 SITUACIÓN
   Transponer una matriz es girarla sobre su diagonal: las filas pasan a ser columnas y las
@@ -1020,7 +1064,7 @@ EXPLICA
 // TU SOLUCIÓN
 
 
-// EJERCICIO 20 — Triángulo de Pascal (LC 118 · Pascal's Triangle)
+//! EJERCICIO 20 — Triángulo de Pascal (LC 118 · Pascal's Triangle)
 /*
 SITUACIÓN
   El triángulo de Pascal se construye fila por fila: la primera fila es [1]; cada fila
